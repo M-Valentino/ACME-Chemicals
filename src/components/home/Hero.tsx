@@ -7,7 +7,7 @@ export const Hero = () => {
       <div className=" justify-between md:bg-[url('/bgstripe.png')] xs:bg-slate-100">
         <div className=" md:bg-gradient-to-r from-slate-100 from-10% to-transparent md:h-[540px] w-full flex items-center justify-between">
           <div className="xl:ml-24 lg:ml-16 md:ml-8 xs:ml-4 xs:mr-4 max-w-[640px] inline-flex flex-col">
-            <h1 className="font-extrabold text-5xl text-blue-800 mt-12">
+            <h1 className="font-extrabold md:text-5xl xs:text-4xl text-blue-800 mt-8">
               Your One-Stop Shop for Chemical Supplies
             </h1>
             <p className="mt-6 text-slate-700 text-lg">
