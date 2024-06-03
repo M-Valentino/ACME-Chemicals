@@ -8,6 +8,7 @@ export const FeaturedProducts = () => {
       name: "Sulfuric Acid",
       description: "High-purity sulfuric acid for industrial use.",
       price: 30.3,
+      discount: 10,
       size: "20mL"
     },
     {
@@ -34,7 +35,7 @@ export const FeaturedProducts = () => {
   ];
   return (
     <div className="m-8">
-      <h2 className="text-blue-800 font-bold text-3xl mb-8">
+      <h2 className="text-blue-800 font-bold text-3xl mb-12">
         Featured Products
       </h2>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 w-full">
@@ -45,6 +46,7 @@ export const FeaturedProducts = () => {
             name={product.name}
             description={product.description}
             price={product.price}
+            discount={product.discount}
             size={product.size}
           />
         ))}
