@@ -25,7 +25,7 @@ export const Hero = () => {
               width={960}
               height={540}
               alt="chemist"
-              className=" object-cover h-full" // added margin-left to create space between text and image
+              className=" object-cover h-full"
               style={{
                 clipPath:
                   "polygon(20% 0%, 80% 0%, 100% 20%, 100% 100%, 80% 100%, 20% 100%, 0% 80%, 0% 0%)",
