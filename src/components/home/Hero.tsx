@@ -31,8 +31,8 @@ export const Hero = () => {
         <div className="mobileHeroImage p-4 w-full h-full">
           <Image
             src="/pexels-artempodrez-8533095.png"
-            width={960}
-            height={540}
+            width={480}
+            height={260}
             alt="chemist"
             className="object-cover h-full heroClipP"
           />
