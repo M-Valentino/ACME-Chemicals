@@ -7,10 +7,10 @@ export const Hero = () => {
       <div className=" justify-between md:bg-[url('/bgstripe.png')] xs:bg-slate-100">
         <div className=" md:bg-gradient-to-r from-slate-100 from-10% to-transparent md:h-[540px] w-full flex items-center justify-between">
           <div className="xl:ml-24 lg:ml-16 md:ml-8 xs:ml-4 xs:mr-4 max-w-[640px] inline-flex flex-col">
-            <h1 className="font-extrabold md:text-5xl xs:text-4xl text-blue-800 mt-8">
+            <h1 className="font-extrabold lg:text-5xl md:text-4xl xs:text-3xl text-blue-800 mt-8">
               Your One-Stop Shop for Chemical Supplies
             </h1>
-            <p className="mt-6 text-slate-700 text-lg">
+            <p className="md:mt-6 xs:mt-3 text-slate-700 md:text-lg">
               Discover a wide range of high-quality chemical products for all
               your needs. Shop with confidence and get fast, reliable delivery.
             </p>

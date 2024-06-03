@@ -33,6 +33,7 @@ export const FeaturedProducts = () => {
       size: "100mL",
     },
   ];
+
   return (
     <div className="border-b-4 border-blue-800">
       <div className="m-8 ">
