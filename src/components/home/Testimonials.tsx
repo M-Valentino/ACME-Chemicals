@@ -1,9 +1,22 @@
 import React from "react";
+import Image from "next/image";
 
 const Review = () => {
   return (
-    <div className=" bg-white p-8 min-w-[200px] max-w-[500px] rounded-md">
-      <p>fhfhj fs fshkj fsd jhsdhjfd fds jk dfshfshfjsa fdsjfshf shfs</p>
+    <div className="bg-white p-8  rounded-md">
+      <div className=" flex flex-row">
+        <Image
+          src="/pexels-artempodrez-8533095.png"
+          alt="avatar"
+          width={56}
+          height={56}
+        />
+        <div className=" ml-4">
+          <div className="font-semibold">Name</div>
+          <div className="text-sm">Title</div>
+        </div>
+      </div>
+      <p>Acme Chemicals has been a reliable supplier for our laboratory. The quality of their products is top-notch and their customer service is exceptional.</p>
     </div>
   );
 };
@@ -18,9 +31,9 @@ export const Testimonials = () => {
         Hear from our satisfied customers about their experience with Acme
         Chemicals.
       </p>
-      <Review/>
-      <Review/>
-      <Review/>
+      <Review />
+      <Review />
+      <Review />
     </div>
   );
 };

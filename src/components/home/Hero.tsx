@@ -15,7 +15,7 @@ export const Hero = () => {
                 your needs. Shop with confidence and get fast, reliable
                 delivery.
               </p>
-              <button className="bg-blue-800 text-gray-50 font-semibold w-48 p-2 text-xl mt-8">
+              <button className="bg-blue-800 text-gray-50 font-semibold w-48 p-2 text-xl mt-8 rounded-md shadow-sm">
                 Shop Now
               </button>
             </div>
