@@ -7,9 +7,11 @@ export default function Home() {
   return (
     <>
       <TopNav />
-      <Hero/>
-      <FeaturedProducts/>
-      <Testimonials/>
+      <main>
+        <Hero />
+        <FeaturedProducts />
+        <Testimonials />
+      </main>
     </>
   );
 }
