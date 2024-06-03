@@ -39,7 +39,7 @@ export const FeaturedProducts = () => {
         <h2 className="text-blue-800 font-bold text-3xl mb-12">
           Featured Products
         </h2>
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 w-full">
+        <div className="grid gridSM:grid-cols-2 gridM:grid-cols-3 gridL:grid-cols-4 gap-8 w-full">
           {prods.map((product, index: number) => (
             <ProductCard
               key={index}
