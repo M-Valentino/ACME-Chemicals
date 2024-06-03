@@ -18,7 +18,8 @@ export const ProductCard: React.FC<ProductCardProps> = (
   return (
     <div className="w-[240px]" key={key}>
       {discount && (
-        <div className="relative -mb-4 -mt-4 pr-2 pl-2 w-fit h-8 leading-8 font-bold bg-blue-800 text-gray-50">
+        <div className="relative -mb-4 -mt-4 h-8 leading-8 font-bold text-green-800"
+        >
           {discount}% off
         </div>
       )}
