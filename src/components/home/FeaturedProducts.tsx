@@ -36,7 +36,7 @@ export const FeaturedProducts = () => {
   ];
 
   return (
-    <div className="border-b-4 pb-4 border-blue-800">
+    <div className="border-b-2 pb-4 border-blue-800">
       <h2 className="text-blue-800 font-bold text-3xl mt-8 ml-8">
         Featured Products
       </h2>
