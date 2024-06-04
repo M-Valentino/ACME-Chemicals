@@ -53,7 +53,10 @@ type NavButtonProps = {
 
 const NavButton = ({ name }: NavButtonProps) => {
   return (
-    <Button className="h-12 flex items-center mr-8">
+    <Button
+      className="h-12 flex items-center mr-1"
+      onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
+    >
       {getIcon(name)}
       <div className="ml-1 text-lg">{name}</div>
     </Button>
