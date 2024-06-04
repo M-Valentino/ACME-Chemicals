@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Review = () => {
   return (
-    <div className="bg-white p-6 mb-2 rounded-md">
+    <div className="bg-white p-6 mb-2 rounded-md border-stone-200 border-2">
       <div className=" flex flex-row">
         <Image
           src="/pexels-artempodrez-8533095.png"
@@ -23,7 +23,7 @@ const Review = () => {
 
 export const Testimonials = () => {
   return (
-    <div className=" bg-slate-100 p-8">
+    <div className=" bg-slate-100 p-8 ">
       <h2 className="text-blue-800 font-bold text-3xl mb-2">
         What Our Customers Say
       </h2>
