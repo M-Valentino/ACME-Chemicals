@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { MainWrapper } from "@/components/MainWrapper";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-interface City {
+interface Sort {
   name: string;
-  code: string;
 }
 export default function Products() {
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
-  const cities: City[] = [
-    { name: "New York", code: "NY" },
-    { name: "Rome", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-    { name: "Paris", code: "PRS" },
+  const sorts: Sort[] = [
+    { name: "Best Match" },
+    { name: "Lowest Price" },
+    { name: "Highest Price" },
   ];
+  const [selectedSort, setSelectedSort] = useState<Sort | null>(sorts[0]);
+
   return (
     <>
       <MainWrapper>
@@ -24,21 +22,19 @@ export default function Products() {
             <h1 className="mr-16 font-extrabold text-5xl text-primary">
               Products
             </h1>
-
             <InputText
               className=" flex-grow"
               type="text"
               placeholder="Search"
             />
-            <Button label="Search" className="ml-2" />
             <Dropdown
-              value={selectedCity}
-              onChange={(e: DropdownChangeEvent) => setSelectedCity(e.value)}
-              options={cities}
+              value={selectedSort}
+              onChange={(e: DropdownChangeEvent) => setSelectedSort(e.value)}
+              options={sorts}
               optionLabel="name"
-              placeholder="Select a City"
-              className="ml-2 w-32"
+              className="ml-2 w-40 "
             />
+            <Button label="Search" className="ml-2 w-44" />
           </div>
         </div>
       </MainWrapper>
