@@ -67,7 +67,9 @@ export const TopNav = () => {
   return (
     <div className="top-0 w-full bg-primary fixed z-10">
       <div className="flex justify-between items-center h-12 text-gray-50">
-        <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
+        <a href="/">
+          <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
+        </a>
         <div className=" flex justify-end">
           <NavButton name="Products" />
           <NavButton name="Cart" />
