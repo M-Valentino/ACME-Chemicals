@@ -28,7 +28,7 @@ const reviews = [
     name: "Joseph Mwangi",
     title: "Procurement Manager",
     description:
-      "We\'ve been sourcing our laboratory chemicals from ACME Chemicals for over five years, and their reliability is unmatched. Their competitive pricing and product range have been key to our success.",
+      "We've been sourcing our laboratory chemicals from ACME Chemicals for over five years, and their reliability is unmatched. Their competitive pricing and product range have been key to our success.",
   },
 ];
 
@@ -44,7 +44,7 @@ const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
   const { key, imgSrc, name, title, description } = props;
   return (
     <div
-      className="bg-white p-6 mb-2 rounded-md border-stone-200 border-2"
+      className="bg-white p-6 rounded-md border-stone-200 border-2 xs:mb-2 md:mb-0"
       key={key}
     >
       <div className=" flex flex-row">
