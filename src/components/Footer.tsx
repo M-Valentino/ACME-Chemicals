@@ -40,7 +40,7 @@ const footerData = [
 
 export const Footer = () => {
   return (
-    <div className="bg-blue-800 text-white p-8">
+    <div className="bg-primary text-white p-8">
       <div className="md:flex md:flex-row md:justify-around xs:grid xs:grid-cols-2 xs:gap-4">
         {footerData.map((section) => (
           <div key={section.title}>

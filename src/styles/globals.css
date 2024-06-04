@@ -1,25 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tailwind-base, tailwind-utilities;
+
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
 
 @media only screen and (max-width:767px) {
   .desktopHeroImage {
     display: none;
   }
-  
+
 }
+
 @media only screen and (min-width:768px) {
   .mobileHeroImage {
     display: none;
   }
-  
+
 }
+
 .heroClipP {
   clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 100%, 80% 100%, 20% 100%, 0% 80%, 0% 0%);
 }
 
 .thumbX {
-  background: #1e40af !important;
+  background: #0078d4 !important;
 }
 
 .trackX {
