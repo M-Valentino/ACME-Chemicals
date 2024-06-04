@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "primereact/button";
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -52,16 +53,16 @@ type NavButtonProps = {
 
 const NavButton = ({ name }: NavButtonProps) => {
   return (
-    <div className="h-12 flex items-center mr-8">
+    <Button className="h-12 flex items-center mr-8">
       {getIcon(name)}
       <div className="ml-1 text-lg">{name}</div>
-    </div>
+    </Button>
   );
 };
 
 export const TopNav = () => {
   return (
-    <div className="top-0 w-full bg-primary/90 backdrop-blur-sm fixed z-10">
+    <div className="top-0 w-full bg-primary fixed z-10">
       <div className="flex justify-between items-center h-12 text-gray-50">
         <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
         <div className=" flex justify-end">
