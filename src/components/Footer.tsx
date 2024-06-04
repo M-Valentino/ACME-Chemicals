@@ -1,74 +1,59 @@
 import React from "react";
 
+const footerData = [
+  {
+    title: "About",
+    links: [
+      { name: "Company", href: "#" },
+      { name: "Our Team", href: "#" },
+      { name: "Careers", href: "#" },
+      { name: "News", href: "#" },
+    ],
+  },
+  {
+    title: "Products",
+    links: [
+      { name: "Acids", href: "#" },
+      { name: "Bases", href: "#" },
+      { name: "Oxidizers", href: "#" },
+      { name: "Solvents", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { name: "Privacy Policy", href: "#" },
+      { name: "Terms and Conditions", href: "#" },
+      { name: "Shipping Policy", href: "#" },
+    ],
+  },
+  {
+    title: "Media",
+    links: [
+      { name: "Sales", href: "#" },
+      { name: "Support", href: "#" },
+      { name: "Partnerships", href: "#" },
+      { name: "Media", href: "#" },
+    ],
+  },
+];
+
 export const Footer = () => {
   return (
-    <div className=" bg-blue-800 text-white p-8">
+    <div className="bg-blue-800 text-white p-8">
       <div className="flex flex-row justify-between">
-        <div>
-          <h3 className="font-bold">About</h3>
-          <ul>
-            <li>
-              <a href="#">Company</a>
-            </li>
-            <li>
-              <a href="#">Our Team</a>
-            </li>
-            <li>
-              <a href="#">Careers</a>
-            </li>
-            <li>
-              <a href="#">News</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="font-bold">Products</h3>
-          <ul>
-            <li>
-              <a href="#">Acids</a>
-            </li>
-            <li>
-              <a href="#">Bases</a>
-            </li>
-            <li>
-              <a href="#">Oxidizers</a>
-            </li>
-            <li>
-              <a href="#">Solvents</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="font-bold">Legal</h3>
-          <ul>
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#">Terms and Conditions</a>
-            </li>
-            <li>
-              <a href="#">Shipping Policy</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="font-bold">Media</h3>
-          <ul>
-            <li>
-              <a href="#">Sales</a>
-            </li>
-            <li>
-              <a href="#">Support</a>
-            </li>
-            <li>
-              <a href="#">Partnerships</a>
-            </li>
-            <li>
-              <a href="#">Media</a>
-            </li>
-          </ul>
-        </div>
+        {footerData.map((section) => (
+          <div key={section.title}>
+            <h3 className="font-bold">{section.title}</h3>
+            <ul>
+              {section.links.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href}>{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
