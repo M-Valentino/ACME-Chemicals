@@ -36,23 +36,21 @@ export const FeaturedProducts = () => {
 
   return (
     <div className="border-b-4 border-blue-800">
-      <div className="m-8 ">
-        <h2 className="text-blue-800 font-bold text-3xl mb-12">
-          Featured Products
-        </h2>
-        <div className="grid gridSM:grid-cols-2 gridM:grid-cols-3 gridL:grid-cols-4 gap-8 w-full">
-          {prods.map((product, index: number) => (
-            <ProductCard
-              key={index}
-              imgSrc={product.imgSrc}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              discount={product.discount}
-              size={product.size}
-            />
-          ))}
-        </div>
+      <h2 className="text-blue-800 font-bold text-3xl mb-8 mt-8 ml-8">
+        Featured Products
+      </h2>
+      <div className="hiddenSB flex flex-row overflow-x-auto">
+        {prods.map((product, index: number) => (
+          <ProductCard
+            key={index}
+            imgSrc={product.imgSrc}
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            discount={product.discount}
+            size={product.size}
+          />
+        ))}
       </div>
     </div>
   );
