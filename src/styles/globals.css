@@ -17,3 +17,11 @@
 .heroClipP {
   clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 100%, 80% 100%, 20% 100%, 0% 80%, 0% 0%);
 }
+
+.thumbX {
+  background: #1e40af !important;
+}
+
+.trackX {
+  background: transparent !important;
+}

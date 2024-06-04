@@ -16,7 +16,7 @@ export const ProductCard: React.FC<ProductCardProps> = (
 ) => {
   const { key, imgSrc, name, description, price, discount, size } = props;
   return (
-    <div className=" min-w-[280px] mr-4 ml-4 max-w-[280px] bg-slate-100 rounded-md shadow-sm p-4" key={key}>
+    <div className=" min-w-[280px] m-4 max-w-[280px] bg-slate-100 rounded-md shadow-sm p-4" key={key}>
       {discount && (
         <div className="relative -mb-4 -mt-4 h-8 leading-8 font-bold text-green-800"
         >
