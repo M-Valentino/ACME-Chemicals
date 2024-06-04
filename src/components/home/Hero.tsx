@@ -15,7 +15,11 @@ export const Hero = () => {
               Discover a wide range of high-quality chemical products for all
               your needs. Shop with confidence and get fast, reliable delivery.
             </p>
-            <Button label="Shop Now" className="w-48 mt-4" />
+            <Button
+              label="Shop Now"
+              className="w-48 mt-4"
+              onClick={() => window.open("/products", "_self")}
+            />
           </div>
           <div className="desktopHeroImage xl:pr-24 lg:pr-16 md:pr-8 xl:pl-24 lg:pl-16 md:pl-8 pt-8 pb-8 w-full h-full">
             <Image
