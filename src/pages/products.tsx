@@ -15,7 +15,11 @@ export default function Products() {
     { name: "Highest Price" },
   ];
   const [selectedSort, setSelectedSort] = useState<Sort>(sorts[0]);
-  const [priceRange, setpriceRange] = useState<[number, number]>([0, 500]);
+  const [priceRange, setpriceRange] = useState<[number, number]>([0, 300]);
+
+  const priceInputFormatter = (val: string) => {
+    return Math.min(parseInt(val.substring(1)), 300) || 0;
+  };
 
   return (
     <MainWrapper>
@@ -66,7 +70,7 @@ export default function Products() {
                   type="text"
                   placeholder="$ Min"
                   onChange={(e) => {
-                    const minPrice = parseInt(e.target.value.substring(1)) || 0;
+                    const minPrice = priceInputFormatter(e.target.value);
                     setpriceRange([minPrice, priceRange[1]]);
                   }}
                 />
@@ -77,8 +81,7 @@ export default function Products() {
                   type="text"
                   placeholder="$ Max"
                   onChange={(e) => {
-                    const maxPrice =
-                      Math.min(parseInt(e.target.value.substring(1)), 500) || 0;
+                    const maxPrice = priceInputFormatter(e.target.value);
                     setpriceRange([priceRange[0], maxPrice]);
                   }}
                 />
@@ -89,8 +92,8 @@ export default function Products() {
                 className="w-full mt-4"
                 range
                 min={0}
-                max={500}
-                step={10}
+                max={300}
+                step={5}
               />
             </div>
           </div>
