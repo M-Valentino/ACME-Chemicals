@@ -15,10 +15,15 @@ export default function Products() {
     { name: "Highest Price" },
   ];
   const [selectedSort, setSelectedSort] = useState<Sort>(sorts[0]);
-  const [priceRange, setpriceRange] = useState<[number, number]>([0, 300]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
 
   const priceInputFormatter = (val: string) => {
     return Math.min(parseInt(val.substring(1)), 300) || 0;
+  };
+
+  // For prevnting min price from being higher than max price and vice versa.
+  const handleSliderPriceUpdate = (range: [number, number]) => {
+    setPriceRange([Math.min(range[0], range[1]), Math.max(range[0], range[1])]);
   };
 
   return (
@@ -71,7 +76,7 @@ export default function Products() {
                   placeholder="$ Min"
                   onChange={(e) => {
                     const minPrice = priceInputFormatter(e.target.value);
-                    setpriceRange([minPrice, priceRange[1]]);
+                    setPriceRange([minPrice, priceRange[1]]);
                   }}
                 />
                 <div className="flex items-center">to</div>
@@ -82,13 +87,15 @@ export default function Products() {
                   placeholder="$ Max"
                   onChange={(e) => {
                     const maxPrice = priceInputFormatter(e.target.value);
-                    setpriceRange([priceRange[0], maxPrice]);
+                    setPriceRange([priceRange[0], maxPrice]);
                   }}
                 />
               </div>
               <Slider
                 value={priceRange}
-                onChange={(e) => setpriceRange(e.value as [number, number])}
+                onChange={(e) =>
+                  handleSliderPriceUpdate(e.value as [number, number])
+                }
                 className="w-full mt-4"
                 range
                 min={0}
