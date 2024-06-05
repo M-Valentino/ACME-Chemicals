@@ -100,14 +100,14 @@ export default function Products() {
               onChange={(e: DropdownChangeEvent) => setSelectedSort(e.value)}
               options={sorts}
               optionLabel="name"
-              className="mr-2 h-11 min-w-40 max-w-40"
+              className="mr-2 h-11 w-40"
             />
             <InputText
-              className="w-full h-11"
+              className="flex-grow h-11"
               type="text"
               placeholder="Search"
             />
-            <Button label="Search" className="ml-2 min-w-44 max-w-44 h-11" />
+            <Button label="Search" className="ml-2 w-44 h-11" />
           </div>
         </div>
       </div>
