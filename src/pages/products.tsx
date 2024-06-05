@@ -15,7 +15,8 @@ export default function Products() {
     { name: "Highest Price" },
   ];
   const [selectedSort, setSelectedSort] = useState<Sort>(sorts[0]);
-  const [value, setValue] = useState<[number, number]>([20, 80]);
+  const [priceRange, setpriceRange] = useState<[number, number]>([0, 500]);
+
   return (
     <MainWrapper>
       <div className="p-8">
@@ -60,21 +61,36 @@ export default function Products() {
               <h2 className="mt-4 mb-2 font-semibold text-lg ">Price Range</h2>
               <div className="flex flex-row">
                 <InputText
+                  value={`$${priceRange[0].toString()}`}
                   className="w-1/2 mr-1 p-inputtext-sm"
                   type="text"
                   placeholder="$ Min"
+                  onChange={(e) => {
+                    const minPrice = parseInt(e.target.value.substring(1)) || 0;
+                    setpriceRange([minPrice, priceRange[1]]);
+                  }}
                 />
+                <div className="flex items-center">to</div>
                 <InputText
+                  value={`$${priceRange[1].toString()}`}
                   className="w-1/2 ml-1 p-inputtext-sm"
                   type="text"
                   placeholder="$ Max"
+                  onChange={(e) => {
+                    const maxPrice =
+                      Math.min(parseInt(e.target.value.substring(1)), 500) || 0;
+                    setpriceRange([priceRange[0], maxPrice]);
+                  }}
                 />
               </div>
               <Slider
-                value={value}
-                onChange={(e) => setValue(e.value as [number, number])}
+                value={priceRange}
+                onChange={(e) => setpriceRange(e.value as [number, number])}
                 className="w-full mt-4"
                 range
+                min={0}
+                max={500}
+                step={10}
               />
             </div>
           </div>
