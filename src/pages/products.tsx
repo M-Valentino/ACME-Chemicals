@@ -4,16 +4,14 @@ import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { MainWrapper } from "@/components/MainWrapper";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-interface Sort {
-  name: string;
-}
+
 export default function Products() {
-  const sorts: Sort[] = [
+  const sorts: {name: string}[] = [
     { name: "Best Match" },
     { name: "Lowest Price" },
     { name: "Highest Price" },
   ];
-  const [selectedSort, setSelectedSort] = useState<Sort>(sorts[0]);
+  const [selectedSort, setSelectedSort] = useState<{name: string}>(sorts[0]);
 
   const [checkboxState, setCheckboxState] = useState<{
     [key: string]: boolean;
