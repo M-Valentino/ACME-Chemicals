@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import { Slider } from "primereact/slider";
@@ -18,46 +18,80 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
     },
     {
       category: "Laboratory Chemicals",
-      subCategories: ["Reagents", "buffers", "analytical chemicals"],
+      subCategories: ["Reagents", "Buffers", "Analytical Chemicals"],
     },
   ];
+
+  // State for checkboxes
+  const [checkboxState, setCheckboxState] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const handleCheckboxChange = (name: string, checked: boolean) => {
+    setCheckboxState((prevState) => {
+      const newState = { ...prevState, [name]: checked };
+
+      // Check if the changed checkbox is a category
+      const category = categories.find((cat) => cat.category === name);
+      if (category) {
+        // Update subcategories based on category state
+        category.subCategories.forEach((subCat) => {
+          newState[subCat] = checked;
+        });
+      } else {
+        // If a subcategory is checked, check the parent category
+        categories.forEach((cat) => {
+          if (cat.subCategories.includes(name) && checked) {
+            newState[cat.category] = checked;
+          }
+        });
+      }
+
+      return newState;
+    });
+  };
 
   const priceInputFormatter = (val: string) => {
     return Math.min(parseInt(val.substring(1)), 300) || 0;
   };
 
-  // For preventing min price from being higher than max price and vice versa.
   const handleSliderPriceUpdate = (range: [number, number]) => {
     setPriceRange([Math.min(range[0], range[1]), Math.max(range[0], range[1])]);
   };
 
   return (
-    <div className=" max-w-[256px] mr-16">
+    <div className=" max-w-[248px] mr-8">
       <h1 className=" font-extrabold text-5xl text-primary">Products</h1>
       <div className=" bg-slate-100 p-4 mt-4 rounded-md border-stone-200 border-2">
         <h2 className="font-semibold text-lg ">Categories</h2>
         {categories.map((cat, i, row) => (
-          <>
-            <div className="flex align-items-center mt-2" key={cat.category}>
+          <div key={cat.category}>
+            <div className="flex align-items-center mt-2">
               <Checkbox
-                inputId="ingredient1"
-                name="pizza"
-                value="Cheese"
-                checked
+                inputId={cat.category}
+                name={cat.category}
+                value={cat.category}
+                checked={checkboxState[cat.category] || false}
+                onChange={(e) =>
+                  handleCheckboxChange(cat.category, e.checked as boolean)
+                }
               />
-              <label htmlFor="ingredient1" className="ml-2 ">
+              <label htmlFor={cat.category} className="ml-2 ">
                 {cat.category}
               </label>
             </div>
             {cat.subCategories.map((subCat) => (
               <div className="flex align-items-center ml-6 mt-1" key={subCat}>
                 <Checkbox
-                  inputId="ingredient1"
-                  name="pizza"
-                  value="Cheese"
-                  checked
+                  inputId={subCat}
+                  name={subCat}
+                  value={subCat}
+                  checked={checkboxState[subCat] || false}
+                  onChange={(e) =>
+                    handleCheckboxChange(subCat, e.checked as boolean)
+                  }
                 />
-                <label htmlFor="ingredient1" className="ml-2 text-gray-700">
+                <label htmlFor={subCat} className="ml-2 text-gray-700">
                   {subCat}
                 </label>
               </div>
@@ -65,7 +99,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
             {i !== row.length - 1 && (
               <hr className="border-stone-200 border-1 mt-1" />
             )}
-          </>
+          </div>
         ))}
         <h2 className="mt-5 mb-2 font-semibold text-lg ">Price Range</h2>
         <div className="flex flex-row">
