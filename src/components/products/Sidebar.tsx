@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import { Slider } from "primereact/slider";
@@ -6,10 +6,12 @@ import { Slider } from "primereact/slider";
 interface SidebarProps {
   priceRange: [number, number];
   setPriceRange: Dispatch<SetStateAction<[number, number]>>;
+  checkboxState: { [key: string]: boolean };
+  setCheckboxState: Dispatch<SetStateAction<{ [key: string]: boolean }>>;
 }
 
 export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
-  const { priceRange, setPriceRange } = props;
+  const { priceRange, setPriceRange, checkboxState, setCheckboxState } = props;
 
   const categories = [
     {
@@ -21,11 +23,6 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
       subCategories: ["Reagents", "Buffers", "Analytical Chemicals"],
     },
   ];
-
-  // State for checkboxes
-  const [checkboxState, setCheckboxState] = useState<{
-    [key: string]: boolean;
-  }>({});
 
   const handleCheckboxChange = (name: string, checked: boolean) => {
     setCheckboxState((prevState) => {

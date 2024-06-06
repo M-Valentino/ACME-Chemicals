@@ -14,6 +14,11 @@ export default function Products() {
     { name: "Highest Price" },
   ];
   const [selectedSort, setSelectedSort] = useState<Sort>(sorts[0]);
+
+  const [checkboxState, setCheckboxState] = useState<{
+    [key: string]: boolean;
+  }>({});
+
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
 
   return (
@@ -23,6 +28,8 @@ export default function Products() {
           <Sidebar
             priceRange={priceRange}
             setPriceRange={setPriceRange}
+            checkboxState={checkboxState}
+            setCheckboxState={setCheckboxState}
           />
           <div className=" w-full flex">
             <Dropdown
