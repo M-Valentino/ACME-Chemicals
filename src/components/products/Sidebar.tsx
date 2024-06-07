@@ -89,7 +89,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
                   handleCheckboxChange(cat.category, e.checked as boolean)
                 }
               />
-              <label htmlFor={cat.category} className="ml-2 ">
+              <label htmlFor={cat.category} className="ml-2 cursor-pointer">
                 {cat.category}
               </label>
             </div>
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
                     handleCheckboxChange(subCat, e.checked as boolean)
                   }
                 />
-                <label htmlFor={subCat} className="ml-2 text-gray-700">
+                <label htmlFor={subCat} className="ml-2 cursor-pointer text-gray-700">
                   {subCat}
                 </label>
               </div>
