@@ -6,12 +6,12 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 
 export default function Products() {
-  const sorts: {name: string}[] = [
+  const sorts: { name: string }[] = [
     { name: "Best Match" },
     { name: "Lowest Price" },
     { name: "Highest Price" },
   ];
-  const [selectedSort, setSelectedSort] = useState<{name: string}>(sorts[0]);
+  const [selectedSort, setSelectedSort] = useState<{ name: string }>(sorts[0]);
 
   const [checkboxState, setCheckboxState] = useState<{
     [key: string]: boolean;
@@ -29,20 +29,35 @@ export default function Products() {
             checkboxState={checkboxState}
             setCheckboxState={setCheckboxState}
           />
-          <div className=" w-full flex">
-            <Dropdown
-              value={selectedSort}
-              onChange={(e: DropdownChangeEvent) => setSelectedSort(e.value)}
-              options={sorts}
-              optionLabel="name"
-              className="mr-2 h-11 w-40"
-            />
-            <InputText
-              className="flex-grow h-11"
-              type="text"
-              placeholder="Search"
-            />
-            <Button label="Search" className="ml-2 w-44 h-11" />
+          <div className=" w-full flex-col">
+            <div className=" w-full flex">
+              <Dropdown
+                value={selectedSort}
+                onChange={(e: DropdownChangeEvent) => setSelectedSort(e.value)}
+                options={sorts}
+                optionLabel="name"
+                className="mr-2 h-11 w-40"
+              />
+              <InputText
+                className="flex-grow h-11"
+                type="text"
+                placeholder="Search"
+              />
+              <Button label="Search" className="ml-2 w-44 h-11" />
+            </div>
+            <div className="flex flex-row flex-wrap">
+              {Object.entries(checkboxState).map(
+                ([key, value]) =>
+                  value && (
+                    <div
+                      className="rounded-2xl border-primary border-2 text-primary mr-2 mt-2 pl-2 pr-2"
+                      key={key}
+                    >
+                      {key}
+                    </div>
+                  )
+              )}
+            </div>
           </div>
         </div>
       </div>

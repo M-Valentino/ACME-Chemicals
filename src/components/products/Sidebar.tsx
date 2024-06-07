@@ -59,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
           newState[cat.category] = false;
         }
       });
-
+      console.log(checkboxState);
       return newState;
     });
   };
