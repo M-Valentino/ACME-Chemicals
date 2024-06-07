@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   return (
     <div className=" max-w-[248px] mr-8">
       <h1 className=" font-extrabold text-5xl text-primary">Products</h1>
-      <div className=" bg-slate-100 p-4 mt-4 rounded-md border-stone-200 border-2">
+      <div className=" bg-secondary p-4 mt-4 rounded-md ">
         <h2 className="font-semibold text-lg ">Categories</h2>
         {categories.map((cat, i, row) => (
           <div key={cat.category}>
