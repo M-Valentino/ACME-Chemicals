@@ -50,31 +50,42 @@ const getIcon = (name: string) => {
 
 type NavButtonProps = {
   name: string;
+  title: string;
 };
 
-const NavButton = ({ name }: NavButtonProps) => {
+const NavButton = ({ name, title }: NavButtonProps) => {
   return (
     <Button
-      className="h-12 flex items-center mr-1"
+      className="h-12 ml-1"
       onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
     >
-      {getIcon(name)}
-      <div className="ml-1 text-lg">{name}</div>
+      <div className="flex flex-col items-center">
+        <div className="flex flex-row ">
+          {getIcon(name)}
+          <div className="ml-1 text-lg">{name}</div>
+        </div>
+        {title === name && <div className="w-full border-t-2 border-white" />}
+      </div>
     </Button>
   );
 };
 
-export const TopNav = () => {
+interface TopNavProps {
+  title: string;
+}
+
+export const TopNav: React.FC<TopNavProps> = (props) => {
+  const { title } = props;
   return (
     <div className="top-0 w-full bg-primary fixed z-10">
       <div className="flex justify-between items-center h-12 text-gray-50">
         <Link href="/">
           <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
         </Link>
-        <div className=" flex justify-end">
-          <NavButton name="Products" />
-          <NavButton name="Cart" />
-          <NavButton name="Log In" />
+        <div className=" flex justify-end mr-8">
+          <NavButton name="Products" title={title} />
+          <NavButton name="Cart" title={title} />
+          <NavButton name="Log In" title={title} />
         </div>
       </div>
     </div>

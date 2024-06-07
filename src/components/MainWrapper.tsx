@@ -15,7 +15,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
     <Head>
       <title>{title}</title>
     </Head>
-      <TopNav />
+      <TopNav title={title}/>
       <main className="mt-12 min-h-[80vh]">{children}</main>
       <Footer />
     </>
