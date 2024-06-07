@@ -15,6 +15,10 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
 
   const categories = [
     {
+      category: "Agricultural Chemicals",
+      subCategories: ["Fertilizers", "Pesticides", "Herbicides", "Growth Regulators"],
+    },
+    {
       category: "Industrial Chemicals",
       subCategories: ["Acids", "Bases", "Solvents"],
     },
