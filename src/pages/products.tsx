@@ -21,7 +21,7 @@ export default function Products() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
 
   return (
-    <MainWrapper>
+    <MainWrapper title="Products">
       <div className="p-8">
         <div className="flex flex-row  justify-between">
           <Sidebar
