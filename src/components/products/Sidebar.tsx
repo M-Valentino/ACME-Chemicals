@@ -16,7 +16,12 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   const categories = [
     {
       category: "Agricultural Chemicals",
-      subCategories: ["Fertilizers", "Pesticides", "Herbicides", "Growth Regulators"],
+      subCategories: [
+        "Fertilizers",
+        "Pesticides",
+        "Herbicides",
+        "Growth Regulators",
+      ],
     },
     {
       category: "Industrial Chemicals",
@@ -47,6 +52,13 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
           }
         });
       }
+
+      // Ensure category is unchecked if all subcategories are unchecked
+      categories.forEach((cat) => {
+        if (cat.subCategories.every((subCat) => !newState[subCat])) {
+          newState[cat.category] = false;
+        }
+      });
 
       return newState;
     });
