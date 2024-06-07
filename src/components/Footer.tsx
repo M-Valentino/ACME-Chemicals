@@ -55,10 +55,7 @@ export const Footer = () => {
           </div>
         ))}
       </div>
-      <p className="mt-4">
-        This is not a real company or store page. Website designed and coded by
-        Mark Valentino.
-      </p>
+      <p className="mt-4">This is not a real company or store page. Website designed and coded by Mark Valentino.</p>
     </div>
   );
 };

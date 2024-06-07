@@ -43,18 +43,14 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
     });
   };
 
-  const priceInputFormatter = (val: string) => {
-    return Math.min(parseInt(val.substring(1)), 300) || 0;
-  };
-
   const handleSliderPriceUpdate = (range: [number, number]) => {
     setPriceRange([Math.min(range[0], range[1]), Math.max(range[0], range[1])]);
   };
 
   return (
-    <div className=" max-w-[248px] mr-8">
+    <div className="min-w-[230px] mr-8">
       <h1 className=" font-extrabold text-5xl text-primary">Products</h1>
-      <div className=" bg-secondary p-4 mt-4 rounded-md ">
+      <div className="pr-4 mt-4 ">
         <h2 className="font-semibold text-lg ">Categories</h2>
         {categories.map((cat, i, row) => (
           <div key={cat.category}>
@@ -83,29 +79,11 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
             </Accordion>
           </div>
         ))}
-        <h2 className="mt-5 mb-2 font-semibold text-lg ">Price Range</h2>
-        <div className="flex flex-row">
-          <InputText
-            value={`$${priceRange[0].toString()}`}
-            className="w-1/2 mr-1 p-inputtext-sm"
-            type="text"
-            placeholder="$ Min"
-            onChange={(e) => {
-              const minPrice = priceInputFormatter(e.target.value);
-              setPriceRange([minPrice, priceRange[1]]);
-            }}
-          />
+        <h2 className="mt-5 font-semibold text-lg ">Price Range</h2>
+        <div className="flex flex-row space-x-2">
+          <div>{`$${priceRange[0].toString()}`}</div>
           <div className="flex items-center">to</div>
-          <InputText
-            value={`$${priceRange[1].toString()}`}
-            className="w-1/2 ml-1 p-inputtext-sm"
-            type="text"
-            placeholder="$ Max"
-            onChange={(e) => {
-              const maxPrice = priceInputFormatter(e.target.value);
-              setPriceRange([priceRange[0], maxPrice]);
-            }}
-          />
+          <div>{`$${priceRange[1].toString()}`}</div>
         </div>
         <Slider
           value={priceRange}

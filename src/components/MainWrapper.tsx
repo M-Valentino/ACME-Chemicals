@@ -11,7 +11,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
   return (
     <>
       <TopNav />
-      <main className="mt-12">{children}</main>
+      <main className="mt-12 min-h-[80vh]">{children}</main>
       <Footer />
     </>
   );

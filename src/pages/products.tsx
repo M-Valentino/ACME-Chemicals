@@ -50,11 +50,11 @@ export default function Products() {
             <div className="flex flex-row flex-wrap">
               <Chip
                 label={`$${priceRange[0]} to $${priceRange[1]}`}
-                className="mt-2 ml-2"
+                className="mt-2 mr-2"
               />
               {Object.entries(checkboxState).map(
                 ([key, value]) =>
-                  value && <Chip label={key} key={key} className="mt-2 ml-2" />
+                  value && <Chip label={key} key={key} className="mt-2 mr-2" />
               )}
             </div>
           </div>
