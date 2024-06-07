@@ -46,11 +46,14 @@ export default function Products() {
               <Button label="Search" className="ml-2 w-44 h-11" />
             </div>
             <div className="flex flex-row flex-wrap">
+              <div className="rounded-3xl border-primary border-2 text-primary text-sm mr-2 mt-2 pt-1 pb-1 pl-2 pr-2 ">
+                ${priceRange[0]} to ${priceRange[1]}
+              </div>
               {Object.entries(checkboxState).map(
                 ([key, value]) =>
                   value && (
                     <div
-                      className="rounded-2xl border-primary border-2 text-primary mr-2 mt-2 pl-2 pr-2"
+                      className="rounded-3xl border-primary border-2 text-primary text-sm mr-2 mt-2 pt-1 pb-1 pl-2 pr-2 "
                       key={key}
                     >
                       {key}
