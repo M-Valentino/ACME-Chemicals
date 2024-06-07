@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { Accordion, AccordionTab } from "primereact/accordion";
 import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import { Slider } from "primereact/slider";
@@ -15,7 +16,7 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
 
   const categories = [
     {
-      category: "Agricultural Chemicals",
+      category: "Agricultural",
       subCategories: [
         "Fertilizers",
         "Pesticides",
@@ -24,11 +25,11 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
       ],
     },
     {
-      category: "Industrial Chemicals",
+      category: "Industrial",
       subCategories: ["Acids", "Bases", "Solvents"],
     },
     {
-      category: "Laboratory Chemicals",
+      category: "Laboratory",
       subCategories: ["Reagents", "Buffers", "Analytical Chemicals"],
     },
   ];
@@ -37,28 +38,6 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
     setCheckboxState((prevState) => {
       const newState = { ...prevState, [name]: checked };
 
-      // Check if the changed checkbox is a category
-      const category = categories.find((cat) => cat.category === name);
-      if (category) {
-        // Update subcategories based on category state
-        category.subCategories.forEach((subCat) => {
-          newState[subCat] = checked;
-        });
-      } else {
-        // If a subcategory is checked, check the parent category
-        categories.forEach((cat) => {
-          if (cat.subCategories.includes(name) && checked) {
-            newState[cat.category] = checked;
-          }
-        });
-      }
-
-      // Ensure category is unchecked if all subcategories are unchecked
-      categories.forEach((cat) => {
-        if (cat.subCategories.every((subCat) => !newState[subCat])) {
-          newState[cat.category] = false;
-        }
-      });
       console.log(checkboxState);
       return newState;
     });
@@ -79,39 +58,29 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
         <h2 className="font-semibold text-lg ">Categories</h2>
         {categories.map((cat, i, row) => (
           <div key={cat.category}>
-            <div className="flex align-items-center mt-2">
-              <Checkbox
-                inputId={cat.category}
-                name={cat.category}
-                value={cat.category}
-                checked={checkboxState[cat.category] || false}
-                onChange={(e) =>
-                  handleCheckboxChange(cat.category, e.checked as boolean)
-                }
-              />
-              <label htmlFor={cat.category} className="ml-2 cursor-pointer">
-                {cat.category}
-              </label>
-            </div>
-            {cat.subCategories.map((subCat) => (
-              <div className="flex align-items-center ml-6 mt-1" key={subCat}>
-                <Checkbox
-                  inputId={subCat}
-                  name={subCat}
-                  value={subCat}
-                  checked={checkboxState[subCat] || false}
-                  onChange={(e) =>
-                    handleCheckboxChange(subCat, e.checked as boolean)
-                  }
-                />
-                <label htmlFor={subCat} className="ml-2 cursor-pointer text-gray-700">
-                  {subCat}
-                </label>
-              </div>
-            ))}
-            {i !== row.length - 1 && (
-              <hr className="border-stone-200 border-1 mt-1" />
-            )}
+            <Accordion multiple activeIndex={[0]}>
+              <AccordionTab header={cat.category}>
+                {cat.subCategories.map((subCat) => (
+                  <div className="mb-1" key={subCat}>
+                    <Checkbox
+                      inputId={subCat}
+                      name={subCat}
+                      value={subCat}
+                      checked={checkboxState[subCat] || false}
+                      onChange={(e) =>
+                        handleCheckboxChange(subCat, e.checked as boolean)
+                      }
+                    />
+                    <label
+                      htmlFor={subCat}
+                      className="ml-2 cursor-pointer text-gray-700"
+                    >
+                      {subCat}
+                    </label>
+                  </div>
+                ))}
+              </AccordionTab>
+            </Accordion>
           </div>
         ))}
         <h2 className="mt-5 mb-2 font-semibold text-lg ">Price Range</h2>

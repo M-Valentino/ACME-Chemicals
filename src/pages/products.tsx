@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Sidebar } from "@/components/products/Sidebar";
+import { Chip } from "primereact/chip";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { MainWrapper } from "@/components/MainWrapper";
 import { Button } from "primereact/button";
@@ -30,7 +31,8 @@ export default function Products() {
             setCheckboxState={setCheckboxState}
           />
           <div className=" w-full flex-col">
-            <div className=" w-full flex">
+            <div className="w-full flex">
+              <div className="flex items-center mr-1">Sort By:</div>
               <Dropdown
                 value={selectedSort}
                 onChange={(e: DropdownChangeEvent) => setSelectedSort(e.value)}
@@ -46,19 +48,13 @@ export default function Products() {
               <Button label="Search" className="ml-2 w-44 h-11" />
             </div>
             <div className="flex flex-row flex-wrap">
-              <div className="rounded-3xl border-primary border-2 text-primary text-sm mr-2 mt-2 pt-1 pb-1 pl-2 pr-2 ">
-                ${priceRange[0]} to ${priceRange[1]}
-              </div>
+              <Chip
+                label={`$${priceRange[0]} to $${priceRange[1]}`}
+                className="mt-2 ml-2"
+              />
               {Object.entries(checkboxState).map(
                 ([key, value]) =>
-                  value && (
-                    <div
-                      className="rounded-3xl border-primary border-2 text-primary text-sm mr-2 mt-2 pt-1 pb-1 pl-2 pr-2 "
-                      key={key}
-                    >
-                      {key}
-                    </div>
-                  )
+                  value && <Chip label={key} key={key} className="mt-2 ml-2" />
               )}
             </div>
           </div>
