@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Button } from "primereact/button";
 
 const getIcon = (name: string) => {
@@ -67,9 +68,9 @@ export const TopNav = () => {
   return (
     <div className="top-0 w-full bg-primary fixed z-10">
       <div className="flex justify-between items-center h-12 text-gray-50">
-        <a href="/">
+        <Link href="/">
           <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
-        </a>
+        </Link>
         <div className=" flex justify-end">
           <NavButton name="Products" />
           <NavButton name="Cart" />
