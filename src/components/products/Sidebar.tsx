@@ -48,53 +48,50 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   };
 
   return (
-    <div className="min-w-[230px] mr-8">
-      <h1 className=" font-extrabold text-5xl text-primary">Products</h1>
-      <div className="pr-4 mt-4 ">
-        <h2 className="font-semibold text-lg ">Categories</h2>
-        {categories.map((cat, i, row) => (
-          <div key={cat.category}>
-            <Accordion multiple activeIndex={[0]}>
-              <AccordionTab header={cat.category}>
-                {cat.subCategories.map((subCat) => (
-                  <div className="mb-1" key={subCat}>
-                    <Checkbox
-                      inputId={subCat}
-                      name={subCat}
-                      value={subCat}
-                      checked={checkboxState[subCat] || false}
-                      onChange={(e) =>
-                        handleCheckboxChange(subCat, e.checked as boolean)
-                      }
-                    />
-                    <label
-                      htmlFor={subCat}
-                      className="ml-2 cursor-pointer text-gray-700"
-                    >
-                      {subCat}
-                    </label>
-                  </div>
-                ))}
-              </AccordionTab>
-            </Accordion>
-          </div>
-        ))}
-        <h2 className="mt-5 font-semibold text-lg ">Price Range</h2>
-        <div className="flex flex-row space-x-2">
-          <div>{`$${priceRange[0].toString()}`}</div>
-          <div className="flex items-center">to</div>
-          <div>{`$${priceRange[1].toString()}`}</div>
+    <>
+      <h2 className="font-semibold text-lg ">Categories</h2>
+      {categories.map((cat, i, row) => (
+        <div key={cat.category}>
+          <Accordion multiple activeIndex={[0]}>
+            <AccordionTab header={cat.category}>
+              {cat.subCategories.map((subCat) => (
+                <div className="mb-1" key={subCat}>
+                  <Checkbox
+                    inputId={subCat}
+                    name={subCat}
+                    value={subCat}
+                    checked={checkboxState[subCat] || false}
+                    onChange={(e) =>
+                      handleCheckboxChange(subCat, e.checked as boolean)
+                    }
+                  />
+                  <label
+                    htmlFor={subCat}
+                    className="ml-2 cursor-pointer text-gray-700"
+                  >
+                    {subCat}
+                  </label>
+                </div>
+              ))}
+            </AccordionTab>
+          </Accordion>
         </div>
-        <Slider
-          value={priceRange}
-          onChange={(e) => handleSliderPriceUpdate(e.value as [number, number])}
-          className="w-full mt-4"
-          range
-          min={0}
-          max={300}
-          step={5}
-        />
+      ))}
+      <h2 className="mt-5 font-semibold text-lg ">Price Range</h2>
+      <div className="flex flex-row space-x-2">
+        <div>{`$${priceRange[0].toString()}`}</div>
+        <div className="flex items-center">to</div>
+        <div>{`$${priceRange[1].toString()}`}</div>
       </div>
-    </div>
+      <Slider
+        value={priceRange}
+        onChange={(e) => handleSliderPriceUpdate(e.value as [number, number])}
+        className="w-full mt-4"
+        range
+        min={0}
+        max={300}
+        step={5}
+      />
+    </>
   );
 };
