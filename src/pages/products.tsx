@@ -51,7 +51,7 @@ export default function Products() {
               />
               <div className="flex-grow flex">
                 <InputText
-                  className="flex-grow h-11"
+                  className="md:flex-grow h-11 xs:w-[calc(100%-6rem)]"
                   type="text"
                   placeholder="Search"
                 />
