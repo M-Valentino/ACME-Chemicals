@@ -28,14 +28,20 @@
 }
 
 @media only screen and (max-width:943px) {
-  .desktopSideBar {
+  .desktopFilterMenu {
     display: none;
+  }
+  .mobileFilterMenu {
+    display: initial;
   }
 }
 
 @media only screen and (min-width:944px) {
-  .desktopSideBar {
+  .desktopFilterMenu {
     display: initial;
+  }
+  .mobileFilterMenu {
+    display: none;
   }
 }
 

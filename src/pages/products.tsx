@@ -1,10 +1,11 @@
 import React, { ReactNode, useState } from "react";
-import { Sidebar } from "@/components/products/Sidebar";
+import { FilterMenu } from "@/components/products/FilterMenu";
 import { Chip } from "primereact/chip";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { MainWrapper } from "@/components/MainWrapper";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Sidebar } from "primereact/sidebar";
 
 export default function Products() {
   const sorts: { name: string }[] = [
@@ -12,6 +13,7 @@ export default function Products() {
     { name: "Lowest Price" },
     { name: "Highest Price" },
   ];
+  const [visibleLeft, setVisibleLeft] = useState<boolean>(false);
   const [selectedSort, setSelectedSort] = useState<{ name: string }>(sorts[0]);
 
   const [checkboxState, setCheckboxState] = useState<{
@@ -22,15 +24,29 @@ export default function Products() {
 
   return (
     <MainWrapper title="Products">
+      <div className="mobileFilterMenu">
+        <Sidebar
+          visible={visibleLeft}
+          position="left"
+          onHide={() => setVisibleLeft(false)}
+        >
+          <FilterMenu
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            checkboxState={checkboxState}
+            setCheckboxState={setCheckboxState}
+          />
+        </Sidebar>
+      </div>
       <div className="md:p-8 xs:p-4">
         <div className="md:flex md:flex-row md:justify-between">
-          <div className="desktopSideBar">
+          <div className="desktopFilterMenu">
             <div className="min-w-[230px] mr-8">
               <h1 className=" font-extrabold text-5xl text-primary">
                 Products
               </h1>
               <div className="pr-4 mt-4 ">
-                <Sidebar
+                <FilterMenu
                   priceRange={priceRange}
                   setPriceRange={setPriceRange}
                   checkboxState={checkboxState}
@@ -49,6 +65,7 @@ export default function Products() {
                 optionLabel="name"
                 className="mr-2 h-11 w-40 mb-2"
               />
+              <Button onClick={() => setVisibleLeft(true)} label="Filters" className="mr-2 mobileFilterMenu h-11" />
               <div className="flex-grow flex">
                 <InputText
                   className="md:flex-grow h-11 xs:w-[calc(100%-6rem)]"

@@ -1,17 +1,16 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { Checkbox } from "primereact/checkbox";
-import { InputText } from "primereact/inputtext";
 import { Slider } from "primereact/slider";
 
-interface SidebarProps {
+interface FilterMenuProps {
   priceRange: [number, number];
   setPriceRange: Dispatch<SetStateAction<[number, number]>>;
   checkboxState: { [key: string]: boolean };
   setCheckboxState: Dispatch<SetStateAction<{ [key: string]: boolean }>>;
 }
 
-export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
+export const FilterMenu: React.FC<FilterMenuProps> = (props: FilterMenuProps) => {
   const { priceRange, setPriceRange, checkboxState, setCheckboxState } = props;
 
   const categories = [
