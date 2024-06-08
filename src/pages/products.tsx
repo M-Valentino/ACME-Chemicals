@@ -65,7 +65,12 @@ export default function Products() {
                 optionLabel="name"
                 className="mr-2 h-11 w-40 mb-2"
               />
-              <Button onClick={() => setVisibleLeft(true)} label="Filters" className="mr-2 mobileFilterMenu h-11" />
+              <Button
+                onClick={() => setVisibleLeft(true)}
+                label="Filters"
+                outlined
+                className="mr-2 mobileFilterMenu h-11"
+              />
               <div className="flex-grow flex">
                 <InputText
                   className="md:flex-grow h-11 xs:w-[calc(100%-6rem)]"

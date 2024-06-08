@@ -10,7 +10,9 @@ interface FilterMenuProps {
   setCheckboxState: Dispatch<SetStateAction<{ [key: string]: boolean }>>;
 }
 
-export const FilterMenu: React.FC<FilterMenuProps> = (props: FilterMenuProps) => {
+export const FilterMenu: React.FC<FilterMenuProps> = (
+  props: FilterMenuProps
+) => {
   const { priceRange, setPriceRange, checkboxState, setCheckboxState } = props;
 
   const categories = [

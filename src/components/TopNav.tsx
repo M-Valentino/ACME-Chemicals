@@ -59,14 +59,14 @@ const NavButton = ({ name, title }: NavButtonProps) => {
       className="h-12 ml-1"
       onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
     >
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center translate-y-[0.125rem]">
         <div className="flex flex-row">
           {getIcon(name)}
           <div className="text-lg">{name}</div>
         </div>
         <div
           className={`w-full border-t-2 ${
-            name === title ? "border-white" : " border-none"
+            name === title ? "border-white" : " border-transparent"
           }`}
         />
       </div>

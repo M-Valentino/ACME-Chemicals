@@ -13,6 +13,7 @@ const config: Config = {
       secondary: "#edebe9",
       black: "#000",
       white: "#fff",
+      transparent: "transparent",
       rose: {
         "50": "#fff1f2",
         "100": "#ffe4e6",
