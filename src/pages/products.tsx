@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FilterMenu } from "@/components/products/FilterMenu";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard, ProductCardType } from "@/components/ProductCard";
 import { Chip } from "primereact/chip";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { MainWrapper } from "@/components/MainWrapper";
@@ -23,21 +23,7 @@ export default function Products() {
 
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
 
-  const [products, setProducts] = useState<[{
-    imgsrc: string,
-    name: string,
-    description: string,
-    price: string,
-    discount: number,
-    size: string
-  }]>([{
-    imgsrc: "",
-    name: "",
-    description: "",
-    price: "",
-    discount: 0,
-    size: "",
-  }]);
+  const [products, setProducts] = useState<ProductCardType[]>([]);
 
   useEffect(() => {
     fetch(`/api/products`)
@@ -115,17 +101,18 @@ export default function Products() {
                   value && <Chip label={key} key={key} className="mt-2 mr-2" />
               )}
             </div>
-            {products.map((product, index: number) => (
-            <ProductCard
-              key={index}
-              imgsrc={product.imgsrc}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              discount={product.discount}
-              size={product.size}
-            />
-          ))}
+            {products.length > 0 &&
+              products.map((product, index: number) => (
+                <ProductCard
+                  key={index}
+                  imgsrc={product.imgsrc}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  discount={product.discount}
+                  size={product.size}
+                />
+              ))}
           </div>
         </div>
       </div>
