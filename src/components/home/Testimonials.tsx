@@ -3,28 +3,28 @@ import Image from "next/image";
 
 const reviews = [
   {
-    imgSrc: "/pexels-artempodrez-8533095.png",
+    imgSrc: "/JaneDursel.jpg",
     name: "Jane Dursel",
     title: "Production Manager",
     description:
       "Acme Chemicals has been a reliable supplier for our laboratory. The quality of their products is top-notch and their customer service is exceptional.",
   },
   {
-    imgSrc: "/pexels-artempodrez-8533095.png",
+    imgSrc: "/DrPriyaMehta.jpg",
     name: "Dr. Priya Mehta",
     title: "Senior Research Scientist",
     description:
       "ACME Chemicals consistently delivers high-quality products on time, making them an invaluable partner for our research projects. Their customer service team is knowledgeable and always ready to assist.",
   },
   {
-    imgSrc: "/pexels-artempodrez-8533095.png",
+    imgSrc: "/JonathanBurke.jpg",
     name: "Jonathan Burke",
     title: "Chemical Engineer",
     description:
       "I've been using Acme Chemicals for years and their products have always exceeded my expectations. The fast delivery and competitive pricing make them a top choice for our business.",
   },
   {
-    imgSrc: "/pexels-artempodrez-8533095.png",
+    imgSrc: "/JosephMwangi.jpg",
     name: "Joseph Mwangi",
     title: "Procurement Manager",
     description:
@@ -48,9 +48,15 @@ const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
       key={key}
     >
       <div className=" flex flex-row">
-        <Image src={imgSrc} alt="avatar" width={56} height={56} />
+        <Image
+          src={imgSrc}
+          alt={`${name}'s portrait`}
+          width={56}
+          height={56}
+          className="rounded-md"
+        />
         <div className=" ml-4">
-          <div className="font-semibold">{name}</div>
+          <div className="font-semibold text-lg">{name}</div>
           <div className="text-sm text-gray-700">{title}</div>
         </div>
       </div>
