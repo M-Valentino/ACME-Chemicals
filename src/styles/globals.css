@@ -12,6 +12,24 @@
   @tailwind utilities;
 }
 
+@media only screen and (max-width:683px) {
+  .desktopMenu {
+    display: none;
+  }
+  .mobileMenu {
+    display: initial;
+  }
+}
+
+@media only screen and (min-width:684px) {
+  .desktopMenu {
+    display: initial;
+  }
+  .mobileMenu {
+    display: none;
+  }
+}
+
 
 @media only screen and (max-width:767px) {
   .desktopHeroImage {

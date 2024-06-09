@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "primereact/button";
+import { Squash as Hamburger } from "hamburger-react";
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -32,7 +33,7 @@ type NavButtonProps = {
   title: string;
 };
 
-const NavButton = ({ name, title }: NavButtonProps) => {
+const DesktopNavButton = ({ name, title }: NavButtonProps) => {
   return (
     <Button
       className="h-12 ml-1"
@@ -60,24 +61,67 @@ const NavButton = ({ name, title }: NavButtonProps) => {
   );
 };
 
+const MobileNavButton = ({ name, title }: NavButtonProps) => {
+  return (
+    <Button
+      className="mt-1"
+      onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
+    >
+      <div className="text-lg mr-1">{name}</div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="size-6"
+      >
+        {getIcon(name)}
+      </svg>
+    </Button>
+  );
+};
+
 interface TopNavProps {
   title: string;
 }
 
 export const TopNav: React.FC<TopNavProps> = (props) => {
   const { title } = props;
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
-    <div className="top-0 w-full bg-primary fixed z-10">
-      <div className="flex justify-between items-center h-12 text-gray-50">
-        <Link href="/">
-          <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
-        </Link>
-        <div className=" flex justify-end flex-row mr-8">
-          <NavButton name="Products" title={title} />
-          <NavButton name="Cart" title={title} />
-          <NavButton name="Log In" title={title} />
+    <>
+      <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
+        <div className="flex justify-between items-center h-12 text-white">
+          <Link href="/">
+            <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
+          </Link>
+          <div className="flex justify-end flex-row mr-8">
+            <DesktopNavButton name="Products" title={title} />
+            <DesktopNavButton name="Cart" title={title} />
+            <DesktopNavButton name="Log In" title={title} />
+          </div>
         </div>
       </div>
-    </div>
+      <div
+        className={`mobileMenu fixed top-0 z-10 h-fit w-full bg-primary ${
+          menuOpen ? " shadow-2xl" : ""
+        }`}
+      >
+        <div className="ml-4 font-bold text-2xl text-white mt-2">
+          <Link href="/">ACME Chemicals</Link>
+        </div>
+        <div className="absolute top-0 right-2">
+          <Hamburger toggled={menuOpen} toggle={setMenuOpen} color="#fff" />
+        </div>
+        <div className="flex flex-col bg-primary mt-1 pb-1">
+          {menuOpen && (
+            <>
+              <MobileNavButton name="Products" title={title} />
+              <MobileNavButton name="Cart" title={title} />
+              <MobileNavButton name="Log In" title={title} />
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
