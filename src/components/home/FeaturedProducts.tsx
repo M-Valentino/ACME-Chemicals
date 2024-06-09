@@ -2,6 +2,9 @@ import React from "react";
 import { ProductCard } from "../ProductCard";
 import { Scrollbar } from "react-scrollbars-custom";
 
+// INSERT INTO products (imgsrc, description, price, size, name, discount)
+// VALUES ('/prodImgs/sulfuricAcid.jpg', 'High-purity sulfuric acid for industrial use.', 30.30, '20mL', 'Sulfuric Acid', 10);
+
 export const FeaturedProducts = () => {
   const prods = [
     {
