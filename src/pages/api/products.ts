@@ -6,8 +6,13 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     query: { name, keyword },
     method,
   } = request;
-  const { rows } = await sql`SELECT * from products;`;
-  console.log(name, keyword, method);
+  if (method === "GET") {
+    const { rows } = await sql`SELECT * from products;`;
+    console.log(name, keyword, method);
 
-  return response.status(200).json(rows);
+    return response.status(200).json(rows);
+  } else if (method === "PUT") {
+
+  }
+  return response.status(500);
 };

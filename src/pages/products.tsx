@@ -26,7 +26,8 @@ export default function Products() {
   const [products, setProducts] = useState<ProductCardType[]>([]);
 
   useEffect(() => {
-    fetch(`/api/products`)
+    fetch((`/api/products`),
+    { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
