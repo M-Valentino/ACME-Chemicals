@@ -31,14 +31,12 @@ const getIcon = (name: string) => {
 type NavButtonProps = {
   name: string;
   title: string;
+  href: string;
 };
 
-const DesktopNavButton = ({ name, title }: NavButtonProps) => {
+const DesktopNavButton = ({ href, name, title }: NavButtonProps) => {
   return (
-    <Button
-      className="h-12 ml-1"
-      onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
-    >
+    <Button className="h-12 ml-1" onClick={() => window.open(href, "_self")}>
       <div className="flex flex-col items-center translate-y-[0.125rem]">
         <div className="flex flex-row">
           <svg
@@ -61,12 +59,9 @@ const DesktopNavButton = ({ name, title }: NavButtonProps) => {
   );
 };
 
-const MobileNavButton = ({ name, title }: NavButtonProps) => {
+const MobileNavButton = ({ name, href }: NavButtonProps) => {
   return (
-    <Button
-      className="mt-1"
-      onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
-    >
+    <Button className="mt-1" onClick={() => window.open(href, "_self")}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -95,9 +90,9 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
           </Link>
           <div className="flex justify-end flex-row mr-8">
-            <DesktopNavButton name="Products" title={title} />
-            <DesktopNavButton name="Cart" title={title} />
-            <DesktopNavButton name="Log In" title={title} />
+            <DesktopNavButton name="Products" title={title} href="/products" />
+            <DesktopNavButton name="Cart" title={title} href="/cart" />
+            <DesktopNavButton name="Log In" title={title} href="/login" />
           </div>
         </div>
       </div>
@@ -115,9 +110,9 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
         <div className="flex flex-col bg-primary mt-1 pb-1">
           {menuOpen && (
             <>
-              <MobileNavButton name="Products" title={title} />
-              <MobileNavButton name="Cart" title={title} />
-              <MobileNavButton name="Log In" title={title} />
+              <MobileNavButton name="Products" title={title} href="/products" />
+              <MobileNavButton name="Cart" title={title} href="/cart" />
+              <MobileNavButton name="Log In" title={title} href="/login" />
             </>
           )}
         </div>
