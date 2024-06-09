@@ -7,6 +7,7 @@ import { MainWrapper } from "@/components/MainWrapper";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export default function Products() {
   const sorts: { name: string }[] = [
@@ -26,8 +27,7 @@ export default function Products() {
   const [products, setProducts] = useState<ProductCardType[]>([]);
 
   useEffect(() => {
-    fetch((`/api/products`),
-    { method: "GET" })
+    fetch(`/api/products`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -103,7 +103,7 @@ export default function Products() {
               )}
             </div>
             <div className="flex flex-row flex-wrap">
-              {products.length > 0 &&
+              {products.length > 0 ? (
                 products.map((product, index: number) => (
                   <ProductCard
                     key={index}
@@ -114,7 +114,10 @@ export default function Products() {
                     discount={product.discount}
                     size={product.size}
                   />
-                ))}
+                ))
+              ) : (
+                <ProgressSpinner />
+              )}
             </div>
           </div>
         </div>
