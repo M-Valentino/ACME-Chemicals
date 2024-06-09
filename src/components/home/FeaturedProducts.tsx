@@ -8,32 +8,32 @@ import { Scrollbar } from "react-scrollbars-custom";
 export const FeaturedProducts = () => {
   const prods = [
     {
-      imgSrc: "/prodImgs/sulfuricAcid.jpg",
+      imgsrc: "/prodImgs/sulfuricAcid.jpg",
       name: "Sulfuric Acid",
       description: "High-purity sulfuric acid for industrial use.",
-      price: 30.3,
+      price: "30.30",
       discount: 10,
       size: "20mL",
     },
     {
-      imgSrc: "/prodImgs/sulfuricAcid.jpg",
+      imgsrc: "/prodImgs/sulfuricAcid.jpg",
       name: "Sodium Hydroxide",
       description: "Caustic soda for a variety of industrial applications.",
-      price: 30.3,
+      price: "30.30",
       size: "10g",
     },
     {
-      imgSrc: "/prodImgs/sulfuricAcid.jpg",
+      imgsrc: "/prodImgs/sulfuricAcid.jpg",
       name: "Hydrochloric Acid",
       description: "Concentrated hydrochloric acid for laboratory use.",
-      price: 30.3,
+      price: "30.30",
       size: "40mL",
     },
     {
-      imgSrc: "/prodImgs/sulfuricAcid.jpg",
+      imgsrc: "/prodImgs/sulfuricAcid.jpg",
       name: "Ethanol",
       description: "High-purity ethanol for laboratory and industrial use.",
-      price: 30.3,
+      price: "30.30",
       size: "100mL",
     },
   ];
@@ -52,7 +52,7 @@ export const FeaturedProducts = () => {
           {prods.map((product, index: number) => (
             <ProductCard
               key={index}
-              imgSrc={product.imgSrc}
+              imgsrc={product.imgsrc}
               name={product.name}
               description={product.description}
               price={product.price}
