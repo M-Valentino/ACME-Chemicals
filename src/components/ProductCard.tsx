@@ -18,7 +18,7 @@ export const ProductCard: React.FC<ProductCardType> = (
 
   return (
     <div
-      className=" min-w-[280px] mr-4 mt-4 max-w-[280px] rounded-md shadow-sm p-4 border-secondary border-2"
+      className="cursor-pointer min-w-[280px] mr-4 mt-4 max-w-[280px] rounded-md shadow-sm p-4 border-secondary border-2 transition ease-in-out hover:scale-102"
       key={key}
     >
       {discount && (
