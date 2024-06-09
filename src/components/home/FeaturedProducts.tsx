@@ -48,7 +48,7 @@ export const FeaturedProducts = () => {
         thumbXProps={{ className: "thumbX" }}
         trackXProps={{ className: "trackX" }}
       >
-        <div className="flex flex-row ">
+        <div className="flex flex-row ml-8">
           {prods.map((product, index: number) => (
             <ProductCard
               key={index}

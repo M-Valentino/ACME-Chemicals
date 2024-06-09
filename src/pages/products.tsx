@@ -101,18 +101,20 @@ export default function Products() {
                   value && <Chip label={key} key={key} className="mt-2 mr-2" />
               )}
             </div>
-            {products.length > 0 &&
-              products.map((product, index: number) => (
-                <ProductCard
-                  key={index}
-                  imgsrc={product.imgsrc}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  discount={product.discount}
-                  size={product.size}
-                />
-              ))}
+            <div className="flex flex-row flex-wrap">
+              {products.length > 0 &&
+                products.map((product, index: number) => (
+                  <ProductCard
+                    key={index}
+                    imgsrc={product.imgsrc}
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    discount={product.discount}
+                    size={product.size}
+                  />
+                ))}
+            </div>
           </div>
         </div>
       </div>
