@@ -67,15 +67,15 @@ const MobileNavButton = ({ name, title }: NavButtonProps) => {
       className="mt-1"
       onClick={() => window.open(`/${name.toLowerCase()}`, "_self")}
     >
-      <div className="text-lg mr-1">{name}</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="size-6"
+        className="size-6 mr-1"
       >
         {getIcon(name)}
       </svg>
+      <div className="text-lg">{name}</div>
     </Button>
   );
 };
