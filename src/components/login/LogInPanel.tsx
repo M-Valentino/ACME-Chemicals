@@ -1,7 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { emailIsInvalid, emailIsTooLong } from "@/utils/validations";
+import {
+  emailIsInvalid,
+  emailIsTooLong,
+  passwordIsTooLong,
+} from "@/utils/validations";
 
 interface LoginPanelProps {
   setShowLogInPanel: Dispatch<SetStateAction<Boolean>>;
@@ -11,17 +15,23 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
   props: LoginPanelProps
 ) => {
   const { setShowLogInPanel } = props;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<{ value: string; error: string }>({
+    value: "",
+    error: "",
+  });
+  const [password, setPassword] = useState<{ value: string; error: string }>({
+    value: "",
+    error: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailIsTooLong(email)) {
-      alert("Email is too long.");
-    } else if (emailIsInvalid(email)) {
-      alert("Email is not valid.");
-    } else {
-      // Handle form submission logic here
+
+    if (emailIsInvalid(email.value) || emailIsTooLong(email.value)) {
+      setEmail({ ...email, error: "Email is invalid." });
+    }
+    if (passwordIsTooLong(password.value)) {
+      setPassword({ ...password, error: "Password is invalid." });
     }
   };
 
@@ -33,12 +43,12 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
         </label>
         <InputText
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={email.value}
+          onChange={(e) => setEmail({ ...email, value: e.target.value })}
           aria-describedby="email-help"
         />
         <small id="email-help" className=" text-red-800">
-          error
+          {email.error}
         </small>
       </div>
       <div className="flex flex-col gap-1">
@@ -48,12 +58,12 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
         <InputText
           id="password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={password.value}
+          onChange={(e) => setPassword({ ...password, value: e.target.value })}
           aria-describedby="password-help"
         />
         <small id="password-help" className=" text-red-800">
-          error
+          {password.error}
         </small>
       </div>
       <Button label="Log in" className="w-full mt-2" type="submit" />

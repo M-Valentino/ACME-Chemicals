@@ -5,3 +5,7 @@ export const emailIsInvalid = (email: string) => {
 export const emailIsTooLong = (email: string) => {
   return email.length > 40;
 };
+
+export const passwordIsTooLong = (password: string) => {
+  return password.length > 32;
+};
