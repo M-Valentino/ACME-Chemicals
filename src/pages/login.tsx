@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MainWrapper } from "@/components/MainWrapper";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+import { LoginPanel } from "@/components/login/LogInPanel";
+import { RegisterPanel } from "@/components/login/RegisterPanel";
 
 export default function login() {
   const [showLogInPanel, setShowLogInPanel] = useState<Boolean>(true);
@@ -12,73 +12,9 @@ export default function login() {
       </h1>
       <div className="border-secondary border-2 max-w-[480px] p-8 m-auto rounded-md mt-4">
         {showLogInPanel ? (
-          <>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="email" className=" text-sm">
-                Email
-              </label>
-              <InputText id="email" aria-describedby="email-help" />
-              <small id="email-help" className=" text-red-800">
-                error
-              </small>
-            </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="password" className=" text-sm">
-                Password
-              </label>
-              <InputText id="password" aria-describedby="password-help" />
-              <small id="password-help" className=" text-red-800">
-                error
-              </small>
-            </div>
-            <Button label="Log in" className="w-full mt-2" />
-            <p className="mt-4 text-center">
-              Don't have an account?{" "}
-              <span
-                className="text-primary ml-1 cursor-pointer"
-                onClick={() => setShowLogInPanel(false)}
-              >
-                Register
-              </span>
-            </p>
-          </>
+          <LoginPanel setShowLogInPanel={setShowLogInPanel} />
         ) : (
-          <>
-            <p
-              className="text-primary cursor-pointer"
-              onClick={() => setShowLogInPanel(true)}
-            >
-              ← Back to Log in
-            </p>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="email" className=" text-sm">
-                Email
-              </label>
-              <InputText id="email" aria-describedby="email-help" />
-              <small id="email-help" className=" text-red-800">
-                error
-              </small>
-            </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="password" className=" text-sm">
-                Password
-              </label>
-              <InputText id="password" aria-describedby="password-help" />
-              <small id="password-help" className=" text-red-800">
-                error
-              </small>
-            </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="password" className=" text-sm">
-                Confirm Password
-              </label>
-              <InputText id="password" aria-describedby="password-help" />
-              <small id="password-help" className=" text-red-800">
-                error
-              </small>
-            </div>
-          </>
+          <RegisterPanel setShowLogInPanel={setShowLogInPanel} />
         )}
       </div>
     </MainWrapper>
