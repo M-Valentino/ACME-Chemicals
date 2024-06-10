@@ -29,9 +29,13 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
 
     if (emailIsInvalid(email.value) || emailIsTooLong(email.value)) {
       setEmail({ ...email, error: "Email is invalid." });
+    } else {
+      setEmail({ ...email, error: "" });
     }
     if (passwordIsTooLong(password.value)) {
       setPassword({ ...password, error: "Password is invalid." });
+    } else {
+      setPassword({ ...password, error: "" });
     }
   };
 
