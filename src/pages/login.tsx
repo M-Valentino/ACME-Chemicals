@@ -3,7 +3,7 @@ import { MainWrapper } from "@/components/MainWrapper";
 import { LoginPanel } from "@/components/login/LogInPanel";
 import { RegisterPanel } from "@/components/login/RegisterPanel";
 
-export default function login() {
+export default function Login() {
   const [showLogInPanel, setShowLogInPanel] = useState<Boolean>(true);
   return (
     <MainWrapper title="Log In">

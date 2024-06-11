@@ -72,7 +72,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
       </div>
       <Button label="Log in" className="w-full mt-2" type="submit" />
       <p className="mt-4 text-center">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <span
           className="text-primary ml-1 cursor-pointer"
           onClick={() => setShowLogInPanel(false)}
