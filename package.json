@@ -13,6 +13,7 @@
     "check-password-strength": "^2.0.10",
     "hamburger-react": "^2.5.1",
     "next": "14.2.3",
+    "next-base64": "^1.1.0",
     "primereact": "^10.6.6",
     "react": "^18",
     "react-dom": "^18",

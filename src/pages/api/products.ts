@@ -14,5 +14,5 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
   } else if (method === "PUT") {
 
   }
-  return response.status(500);
+  return response.status(401).json({ message: "not authorized" });
 };

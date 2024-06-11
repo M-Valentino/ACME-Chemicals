@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
+import nextBase64 from "next-base64";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { passwordStrength } from "check-password-strength";
@@ -31,7 +32,8 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     error: "",
   });
   const [passwordStrengthText, setPasswordStrengthText] = useState<string>("");
-  const [passwordStrengthColor, setPasswordStrengthColor] = useState("transparent");
+  const [passwordStrengthColor, setPasswordStrengthColor] =
+    useState("transparent");
 
   const PSSWD_STRENGTH_NAMES = {
     tooWeak: "Too Weak",
@@ -84,7 +86,10 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
 
   useEffect(() => {
     if (password.value !== "") {
-      const strength = passwordStrength(password.value, psswdStrengthCfg as any);
+      const strength = passwordStrength(
+        password.value,
+        psswdStrengthCfg as any
+      );
       setPasswordStrengthText(`Password Strength: ${strength.value}`);
       setPasswordStrengthColor(getPsswdStrengthColor(strength.value));
     } else {
@@ -94,9 +99,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     }
   }, [password.value]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const allFieldsAreValid = () => {
     if (emailIsInvalid(email.value)) {
       setEmail({ ...email, error: "Email is invalid." });
     } else if (emailIsTooLong(email.value)) {
@@ -123,7 +126,39 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     } else {
       setConfirmPassword({ ...confirmPassword, error: "" });
     }
+    if (
+      email.error === "" &&
+      password.error === "" &&
+      confirmPassword.error === ""
+    ) {
+      return true;
+    }
+    return false;
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (allFieldsAreValid()) {
+      register();
+    }
+  };
+
+  async function register() {
+    const response = await fetch(`/api/auth`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: nextBase64.encode(email.value),
+        password: nextBase64.encode(password.value)
+      })
+    });
+  
+    // Handle the response as needed
+    const data = await response.json();
+    console.log(data);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -159,7 +194,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
           onChange={(e) => setPassword({ ...password, value: e.target.value })}
           aria-describedby="password-help"
         />
-        <small id="password-help" className=" text-red-800">
+        <small id="password-help" className="text-red-800">
           {password.error}
         </small>
       </div>
