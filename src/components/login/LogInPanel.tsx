@@ -4,7 +4,7 @@ import { InputText } from "primereact/inputtext";
 import {
   emailIsInvalid,
   emailIsTooLong,
-  passwordIsTooLong,
+  passwordLengthIsInvalid,
 } from "@/utils/validations";
 
 interface LoginPanelProps {
@@ -32,7 +32,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
     } else {
       setEmail({ ...email, error: "" });
     }
-    if (passwordIsTooLong(password.value)) {
+    if (passwordLengthIsInvalid(password.value)) {
       setPassword({ ...password, error: "Password is invalid." });
     } else {
       setPassword({ ...password, error: "" });

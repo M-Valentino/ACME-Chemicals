@@ -6,6 +6,6 @@ export const emailIsTooLong = (email: string) => {
   return email.length > 40;
 };
 
-export const passwordIsTooLong = (password: string) => {
-  return password.length > 32;
+export const passwordLengthIsInvalid = (password: string) => {
+  return password.length < 8 || password.length > 32;
 };
