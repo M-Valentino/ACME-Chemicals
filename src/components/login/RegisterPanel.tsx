@@ -4,6 +4,10 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { passwordStrength } from "check-password-strength";
 import {
+  psswdStrengthCfg,
+  getPsswdStrengthColor,
+} from "@/utils/passwordStrength";
+import {
   emailIsInvalid,
   emailIsTooLong,
   passwordLengthIsInvalid,
@@ -31,58 +35,10 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     value: "",
     error: "",
   });
-  const [passwordStrengthText, setPasswordStrengthText] = useState<string>("");
-  const [passwordStrengthColor, setPasswordStrengthColor] =
-    useState("transparent");
-
-  const PSSWD_STRENGTH_NAMES = {
-    tooWeak: "Too Weak",
-    weak: "Weak",
-    medium: "Medium",
-    strong: "Strong",
-  };
-
-  const psswdStrengthCfg = [
-    {
-      id: 0,
-      value: PSSWD_STRENGTH_NAMES.tooWeak,
-      minDiversity: 0,
-      minLength: 0,
-    },
-    {
-      id: 1,
-      value: PSSWD_STRENGTH_NAMES.weak,
-      minDiversity: 0,
-      minLength: 8,
-    },
-    {
-      id: 2,
-      value: PSSWD_STRENGTH_NAMES.medium,
-      minDiversity: 2,
-      minLength: 10,
-    },
-    {
-      id: 3,
-      value: PSSWD_STRENGTH_NAMES.strong,
-      minDiversity: 4,
-      minLength: 12,
-    },
-  ];
-
-  const getPsswdStrengthColor = (strength: string) => {
-    switch (strength) {
-      case PSSWD_STRENGTH_NAMES.tooWeak:
-        return "#a01";
-      case PSSWD_STRENGTH_NAMES.weak:
-        return "#841";
-      case PSSWD_STRENGTH_NAMES.medium:
-        return "#881";
-      case PSSWD_STRENGTH_NAMES.strong:
-        return "#181";
-      default:
-        return "#000";
-    }
-  };
+  const [passwordStrengthData, setPasswordStrengthData] = useState<{
+    text: string;
+    color: string;
+  }>({ text: "", color: "transparent" });
 
   useEffect(() => {
     if (password.value !== "") {
@@ -90,12 +46,13 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         password.value,
         psswdStrengthCfg as any
       );
-      setPasswordStrengthText(`Password Strength: ${strength.value}`);
-      setPasswordStrengthColor(getPsswdStrengthColor(strength.value));
+      setPasswordStrengthData({
+        color: getPsswdStrengthColor(strength.value),
+        text: `Password Strength: ${strength.value}`,
+      });
     } else {
       // Avoids telling user password is weak if nothing has been entered.
-      setPasswordStrengthText("");
-      setPasswordStrengthColor("#000");
+      setPasswordStrengthData({ ...passwordStrengthData, text: "" });
     }
   }, [password.value]);
 
@@ -147,14 +104,14 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     const response = await fetch(`/api/auth`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: nextBase64.encode(email.value),
-        password: nextBase64.encode(password.value)
-      })
+        password: nextBase64.encode(password.value),
+      }),
     });
-  
+
     // Handle the response as needed
     const data = await response.json();
     console.log(data);
@@ -198,7 +155,9 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
           {password.error}
         </small>
       </div>
-      <div style={{ color: passwordStrengthColor }}>{passwordStrengthText}</div>
+      <div style={{ color: passwordStrengthData.color }}>
+        {passwordStrengthData.text}
+      </div>
       <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="confirm-password" className=" text-sm">
           Confirm Password
