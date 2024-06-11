@@ -133,7 +133,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
       >
         ← Back to Log in
       </p>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="email" className=" text-sm">
           Email
         </label>
@@ -148,7 +148,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         </small>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="password" className=" text-sm">
           Password
         </label>
@@ -163,7 +163,8 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
           {password.error}
         </small>
       </div>
-      <div className="flex flex-col gap-1">
+      <div style={{ color: passwordStrengthColor }}>{passwordStrengthText}</div>
+      <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="confirm-password" className=" text-sm">
           Confirm Password
         </label>
@@ -180,8 +181,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
           {confirmPassword.error}
         </small>
       </div>
-      <div style={{ color: passwordStrengthColor }}>{passwordStrengthText}</div>
-      <Button label="Register" className="w-full mt-2" type="submit" />
+      <Button label="Register" className="w-full mt-8" type="submit" />
     </form>
   );
 };

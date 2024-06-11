@@ -55,7 +55,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
           {email.error}
         </small>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="password" className=" text-sm">
           Password
         </label>
@@ -70,8 +70,8 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
           {password.error}
         </small>
       </div>
-      <Button label="Log in" className="w-full mt-2" type="submit" />
-      <p className="mt-4 text-center">
+      <Button label="Log in" className="w-full mt-8" type="submit" />
+      <p className="mt-4 text-center text-lg">
         Don&apos;t have an account?{" "}
         <span
           className="text-primary ml-1 cursor-pointer"
