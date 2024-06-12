@@ -1,6 +1,7 @@
-import nextBase64 from "next-base64";
 import type { NextApiRequest, NextApiResponse } from "next";
+import nextBase64 from "next-base64";
 import { encrypt } from "@/utils/encryption";
+import { sql } from "@vercel/postgres";
 
 /**
  * @param {NextApiRequest} request
@@ -12,14 +13,14 @@ export default async function handler(
   response: NextApiResponse
 ): Promise<void> {
   const { headers, method } = request;
-  const { email, password } = request.body;
+  const { name, email, password } = request.body;
 
   if (
     method === "PUT" &&
     headers["content-type"] === "application/json"
   ) {
     try {
-      // Log the email and password
+      console.log("Name:", nextBase64.decode(name));
       console.log("Email:", nextBase64.decode(email));
       console.log("Password:", nextBase64.decode(password));
       console.log(encrypt(password));

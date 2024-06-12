@@ -8,8 +8,9 @@ import {
   getPsswdStrengthColor,
 } from "@/utils/passwordStrength";
 import {
+  nameIsInvalid,
   emailIsInvalid,
-  emailIsTooLong,
+  emailOrNameIsTooLong,
   passwordLengthIsInvalid,
 } from "@/utils/validations";
 
@@ -20,6 +21,10 @@ interface RegisterPanelProps {
 export const RegisterPanel: React.FC<RegisterPanelProps> = ({
   setShowLogInPanel,
 }) => {
+  const [name, setName] = useState<{ value: string; error: string }>({
+    value: "",
+    error: "",
+  });
   const [email, setEmail] = useState<{ value: string; error: string }>({
     value: "",
     error: "",
@@ -57,9 +62,23 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
   }, [password.value]);
 
   const allFieldsAreValid = () => {
+    if (emailOrNameIsTooLong(name.value)) {
+      setName({
+        ...name,
+        error: "Your name can't be longer than 40 characters.",
+      });
+    } else if (nameIsInvalid(name.value)) {
+      setName({
+        ...name,
+        error: "Name can only contain characters A-Z, a-z and spaces.",
+      });
+    }
+    else {
+      setName({ ...name, error: "" });
+    }
     if (emailIsInvalid(email.value)) {
       setEmail({ ...email, error: "Email is invalid." });
-    } else if (emailIsTooLong(email.value)) {
+    } else if (emailOrNameIsTooLong(email.value)) {
       setEmail({
         ...email,
         error: "Email can't be longer than 40 characters.",
@@ -84,6 +103,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
       setConfirmPassword({ ...confirmPassword, error: "" });
     }
     if (
+      name.error === "" &&
       email.error === "" &&
       password.error === "" &&
       confirmPassword.error === ""
@@ -107,6 +127,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name: nextBase64.encode(name.value),
         email: nextBase64.encode(email.value),
         password: nextBase64.encode(password.value),
       }),
@@ -126,6 +147,21 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         ← Back to Log in
       </p>
       <div className="flex flex-col gap-1 mt-1">
+        <label htmlFor="name" className=" text-sm">
+          Name
+        </label>
+        <InputText
+          id="name"
+          value={name.value}
+          onChange={(e) => setName({ ...name, value: e.target.value })}
+          aria-describedby="name-help"
+        />
+        <small id="email-help" className=" text-red-800">
+          {name.error}
+        </small>
+      </div>
+
+      <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="email" className=" text-sm">
           Email
         </label>
@@ -139,7 +175,6 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
           {email.error}
         </small>
       </div>
-
       <div className="flex flex-col gap-1 mt-1">
         <label htmlFor="password" className=" text-sm">
           Password
