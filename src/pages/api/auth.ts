@@ -1,5 +1,6 @@
 import nextBase64 from "next-base64";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { encrypt } from "@/utils/encryption";
 
 /**
  * @param {NextApiRequest} request
@@ -13,10 +14,6 @@ export default async function handler(
   const { headers, method } = request;
   const { email, password } = request.body;
 
-  console.log("HTTP Method:", method);
-  console.log("Content-Type:", headers["content-type"]);
-  console.log("Request Body:", request.body);
-
   if (
     method === "PUT" &&
     headers["content-type"] === "application/json"
@@ -25,6 +22,7 @@ export default async function handler(
       // Log the email and password
       console.log("Email:", nextBase64.decode(email));
       console.log("Password:", nextBase64.decode(password));
+      console.log(encrypt(password));
 
       return response.status(200).json({ message: "success" });
     } catch (error) {
