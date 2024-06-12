@@ -15,15 +15,14 @@ export default async function handler(
   const { headers, method } = request;
   const { name, email, password } = request.body;
 
-  if (
-    method === "PUT" &&
-    headers["content-type"] === "application/json"
-  ) {
+  if (method === "PUT" && headers["content-type"] === "application/json") {
     try {
-      console.log("Name:", nextBase64.decode(name));
-      console.log("Email:", nextBase64.decode(email));
-      console.log("Password:", nextBase64.decode(password));
-      console.log(encrypt(password));
+      let { rows } = await sql`SELECT COUNT(*) FROM users;`;
+      const count = parseInt(rows[0].count);
+      ({ rows } =
+        await sql`INSERT INTO users (id, name, email, password) VALUES (${count}, ${nextBase64.decode(
+          name
+        )}, ${nextBase64.decode(email)}, ${encrypt(password)});`);
 
       return response.status(200).json({ message: "success" });
     } catch (error) {
