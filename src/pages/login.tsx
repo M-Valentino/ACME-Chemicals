@@ -6,7 +6,7 @@ import { RegisterPanel } from "@/components/login/RegisterPanel";
 export default function Login() {
   const [showLogInPanel, setShowLogInPanel] = useState<Boolean>(true);
   return (
-    <MainWrapper title="Log In">
+    <MainWrapper title={showLogInPanel ? "Log In" : "Register"}>
       <h1 className=" text-6xl text-primary font-extrabold text-center">
         Welcome back!
       </h1>
