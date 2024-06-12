@@ -132,8 +132,6 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         password: nextBase64.encode(password.value),
       }),
     });
-
-    // Handle the response as needed
     const data = await response.json();
     console.log(data);
   }

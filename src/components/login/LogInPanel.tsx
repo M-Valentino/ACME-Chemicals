@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
+import nextBase64 from "next-base64";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import {
   emailIsInvalid,
-  emailIsTooLong,
+  emailOrNameIsTooLong,
   passwordLengthIsInvalid,
 } from "@/utils/validations";
 
@@ -24,10 +25,8 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
     error: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (emailIsInvalid(email.value) || emailIsTooLong(email.value)) {
+  const allFieldsAreValid = () => {
+    if (emailIsInvalid(email.value) || emailOrNameIsTooLong(email.value)) {
       setEmail({ ...email, error: "Email is invalid." });
     } else {
       setEmail({ ...email, error: "" });
@@ -36,6 +35,32 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
       setPassword({ ...password, error: "Password is invalid." });
     } else {
       setPassword({ ...password, error: "" });
+    }
+    if (email.error === "" && password.error === "") {
+      return true;
+    }
+    return false;
+  };
+
+  async function authenticate() {
+    const response = await fetch(`/api/auth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: nextBase64.encode(email.value),
+        password: nextBase64.encode(password.value),
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (allFieldsAreValid()) {
+      authenticate();
     }
   };
 
