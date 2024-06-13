@@ -3,6 +3,7 @@ import nextBase64 from "next-base64";
 import { encrypt, decrypt } from "@/utils/encryption";
 import { sql } from "@vercel/postgres";
 import { API_MESSAGES } from "@/utils/consts";
+let jwt = require("jsonwebtoken");
 
 /**
  * @param {NextApiRequest} request
@@ -62,7 +63,13 @@ export default async function handler(
       }
 
       if (decrypt(rows[0].password) === decodedPassword) {
-        return response.status(200).json({ message: API_MESSAGES.success });
+        const data = {
+          time: Date(),
+          userId: rows[0].id,
+        };
+
+        const token = jwt.sign(data, process.env.JWT_SECRET_KEY);
+        return response.status(200).json(token);
       } else {
         return response
           .status(401)
