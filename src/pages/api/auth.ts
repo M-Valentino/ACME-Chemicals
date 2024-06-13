@@ -19,16 +19,20 @@ export default async function handler(
   const decodedEmail = nextBase64.decode(email);
   const decodedPassword = nextBase64.decode(password);
 
+  const emailAlreadyExists = async () => {
+    const { rows } =
+      await sql`SELECT email FROM users WHERE email=${decodedEmail};`;
+    return rows.length !== 0;
+  };
+
   if (method === "PUT" && headers["content-type"] === "application/json") {
     try {
-      let { rows } =
-        await sql`SELECT email FROM users WHERE email=${decodedEmail};`;
-      if (rows.length !== 0) {
+      if (await emailAlreadyExists()) {
         return response
           .status(401)
           .json({ message: API_MESSAGES.duplicateEmail });
       }
-      ({ rows } = await sql`SELECT COUNT(*) FROM users;`);
+      let { rows } = await sql`SELECT COUNT(*) FROM users;`;
       const count = parseInt(rows[0].count);
       ({ rows } =
         await sql`INSERT INTO users (id, name, email, password) VALUES (${count}, ${decodedName}, ${decodedEmail}, ${encrypt(
@@ -49,12 +53,12 @@ export default async function handler(
     try {
       const { rows } =
         await sql`SELECT * FROM users WHERE email=${decodedEmail};`;
-        // If email doesn't exist on db
-        if (rows.length === 0) {
-          return response
-            .status(401)
-            .json({ message: API_MESSAGES.incorrectLogin });
-        }
+      // If email doesn't exist on db
+      if (rows.length === 0) {
+        return response
+          .status(401)
+          .json({ message: API_MESSAGES.incorrectLogin });
+      }
 
       if (decrypt(rows[0].password) === decodedPassword) {
         return response.status(200).json({ message: API_MESSAGES.success });
