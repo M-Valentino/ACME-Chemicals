@@ -47,11 +47,16 @@ export default async function handler(
     headers["content-type"] === "application/json"
   ) {
     try {
-      console.log(decodedEmail);
       const { rows } =
         await sql`SELECT * FROM users WHERE email=${decodedEmail};`;
-      console.log(decrypt(rows[0].password));
-      return response.status(200).json({ message: API_MESSAGES.success });
+
+      if (decrypt(rows[0].password) === decodedPassword) {
+        return response.status(200).json({ message: API_MESSAGES.success });
+      } else {
+        return response
+          .status(401)
+          .json({ message: API_MESSAGES.incorrectPassword });
+      }
     } catch (error) {
       console.error("Error fetching user:", error);
       return response

@@ -7,6 +7,7 @@ import {
   emailOrNameIsTooLong,
   passwordLengthIsInvalid,
 } from "@/utils/validations";
+import { API_MESSAGES } from "@/utils/consts";
 
 interface LoginPanelProps {
   setShowLogInPanel: Dispatch<SetStateAction<Boolean>>;
@@ -54,6 +55,9 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
       }),
     });
     const data = await response.json();
+    if (data.message === API_MESSAGES.incorrectPassword) {
+      setPassword({ ...password, error: API_MESSAGES.incorrectPassword });
+    }
     console.log(data);
   }
 
