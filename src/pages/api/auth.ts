@@ -3,6 +3,7 @@ import nextBase64 from "next-base64";
 import { encrypt, decrypt } from "@/utils/encryption";
 import { sql } from "@vercel/postgres";
 import { API_MESSAGES } from "@/utils/consts";
+let cookie = require("cookie");
 let jwt = require("jsonwebtoken");
 
 /**
@@ -17,8 +18,8 @@ export default async function handler(
   const { headers, method } = request;
   const { name, email, password } = request.body;
   const decodedName = name ? nextBase64.decode(name) : "";
-  const decodedEmail = nextBase64.decode(email);
-  const decodedPassword = nextBase64.decode(password);
+  const decodedEmail = email ? nextBase64.decode(email) : "";
+  const decodedPassword = password ? nextBase64.decode(password) : "";
 
   const emailAlreadyExists = async () => {
     const { rows } =
@@ -67,9 +68,20 @@ export default async function handler(
           time: Date(),
           userId: rows[0].id,
         };
-
         const token = jwt.sign(data, process.env.JWT_SECRET_KEY);
-        return response.status(200).json(token);
+
+        response.setHeader(
+          "Set-Cookie",
+          cookie.serialize("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            maxAge: 60 * 60 * 24, // 1 day
+            sameSite: "strict",
+            path: "/",
+          })
+        );
+
+        return response.status(200).json({ message: API_MESSAGES.success });
       } else {
         return response
           .status(401)
@@ -77,6 +89,27 @@ export default async function handler(
       }
     } catch (error) {
       console.error("Error fetching user:", error);
+      return response
+        .status(500)
+        .json({ message: API_MESSAGES.internalServerError });
+    }
+  } else if (method === "GET") {
+    try {
+      const cookies = cookie.parse(request.headers.cookie || "");
+      const token = cookies.token;
+
+      if (!token) {
+        return response
+          .status(401)
+          .json({ message: API_MESSAGES.notAuthorized });
+      }
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      return response
+        .status(200)
+        .json({ message: API_MESSAGES.success, session: decoded });
+    } catch (error) {
+      console.error("Error verifying token:", error);
       return response
         .status(500)
         .json({ message: API_MESSAGES.internalServerError });
