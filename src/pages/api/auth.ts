@@ -31,7 +31,9 @@ export default async function handler(
       ({ rows } = await sql`SELECT COUNT(*) FROM users;`);
       const count = parseInt(rows[0].count);
       ({ rows } =
-        await sql`INSERT INTO users (id, name, email, password) VALUES (${count}, ${decodedName}, ${decodedEmail}, ${decodedPassword});`);
+        await sql`INSERT INTO users (id, name, email, password) VALUES (${count}, ${decodedName}, ${decodedEmail}, ${encrypt(
+          decodedPassword
+        )});`);
 
       return response.status(200).json({ message: API_MESSAGES.success });
     } catch (error) {
