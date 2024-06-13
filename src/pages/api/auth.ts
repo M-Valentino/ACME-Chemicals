@@ -25,7 +25,11 @@ export default async function handler(
     return rows.length !== 0;
   };
 
-  if (method === "PUT" && headers["content-type"] === "application/json") {
+  if (headers["content-type"] !== "application/json") {
+    return response.status(401).json({ message: API_MESSAGES.notAuthorized });
+  }
+
+  if (method === "PUT") {
     try {
       if (await emailAlreadyExists()) {
         return response
@@ -46,10 +50,7 @@ export default async function handler(
         .status(500)
         .json({ message: API_MESSAGES.internalServerError });
     }
-  } else if (
-    method === "POST" &&
-    headers["content-type"] === "application/json"
-  ) {
+  } else if (method === "POST") {
     try {
       const { rows } =
         await sql`SELECT * FROM users WHERE email=${decodedEmail};`;
