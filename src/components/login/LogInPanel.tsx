@@ -55,8 +55,8 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
       }),
     });
     const data = await response.json();
-    if (data.message === API_MESSAGES.incorrectPassword) {
-      setPassword({ ...password, error: API_MESSAGES.incorrectPassword });
+    if (data.message === API_MESSAGES.incorrectLogin) {
+      setPassword({ ...password, error: API_MESSAGES.incorrectLogin });
     }
     console.log(data);
   }

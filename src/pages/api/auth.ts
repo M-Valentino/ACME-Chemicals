@@ -49,13 +49,19 @@ export default async function handler(
     try {
       const { rows } =
         await sql`SELECT * FROM users WHERE email=${decodedEmail};`;
+        // If email doesn't exist on db
+        if (rows.length === 0) {
+          return response
+            .status(401)
+            .json({ message: API_MESSAGES.incorrectLogin });
+        }
 
       if (decrypt(rows[0].password) === decodedPassword) {
         return response.status(200).json({ message: API_MESSAGES.success });
       } else {
         return response
           .status(401)
-          .json({ message: API_MESSAGES.incorrectPassword });
+          .json({ message: API_MESSAGES.incorrectLogin });
       }
     } catch (error) {
       console.error("Error fetching user:", error);
