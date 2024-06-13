@@ -13,6 +13,7 @@ import {
   emailOrNameIsTooLong,
   passwordLengthIsInvalid,
 } from "@/utils/validations";
+import { API_MESSAGES } from "@/utils/consts";
 
 interface RegisterPanelProps {
   setShowLogInPanel: Dispatch<SetStateAction<Boolean>>;
@@ -72,8 +73,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         ...name,
         error: "Name can only contain characters A-Z, a-z and spaces.",
       });
-    }
-    else {
+    } else {
       setName({ ...name, error: "" });
     }
     if (emailIsInvalid(email.value)) {
@@ -133,7 +133,9 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
       }),
     });
     const data = await response.json();
-    console.log(data);
+    if (data.message === API_MESSAGES.duplicateEmail) {
+      setEmail({ ...email, error: API_MESSAGES.duplicateEmail });
+    }
   }
 
   return (
