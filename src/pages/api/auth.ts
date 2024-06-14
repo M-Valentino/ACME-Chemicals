@@ -64,11 +64,12 @@ export default async function handler(
       }
 
       if (decrypt(rows[0].password) === decodedPassword) {
-        const data = {
+        const sessionInfo = {
           time: Date(),
           userId: rows[0].id,
+          name: rows[0].name,
         };
-        const token = jwt.sign(data, process.env.JWT_SECRET_KEY);
+        const token = jwt.sign(sessionInfo, process.env.JWT_SECRET_KEY);
 
         response.setHeader(
           "Set-Cookie",
@@ -81,7 +82,7 @@ export default async function handler(
           })
         );
 
-        return response.status(200).json({ message: API_MESSAGES.success });
+        return response.status(200).json({ message: API_MESSAGES.success, session: sessionInfo });
       } else {
         return response
           .status(401)
