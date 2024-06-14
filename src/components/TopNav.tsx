@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Squash as Hamburger } from "hamburger-react";
+import { Session } from "inspector";
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -82,6 +83,16 @@ interface TopNavProps {
 export const TopNav: React.FC<TopNavProps> = (props) => {
   const { title } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [sessionInfo, setSessionInfo] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedSessionInfo = localStorage.getItem("sessionInfo");
+      if (storedSessionInfo) {
+        setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
+      }
+    }
+  }, []);
   return (
     <>
       <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
@@ -92,7 +103,11 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
           <div className="flex justify-end flex-row mr-8">
             <DesktopNavButton name="Products" title={title} href="/products" />
             <DesktopNavButton name="Cart" title={title} href="/cart" />
-            <DesktopNavButton name="Log In" title={title} href="/login" />
+            {sessionInfo === "" ? (
+              <DesktopNavButton name="Log In" title={title} href="/login" />
+            ) : (
+              <div>{sessionInfo}</div>
+            )}
           </div>
         </div>
       </div>
