@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Squash as Hamburger } from "hamburger-react";
-import { Session } from "inspector";
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -78,21 +77,12 @@ const MobileNavButton = ({ name, href }: NavButtonProps) => {
 
 interface TopNavProps {
   title: string;
+  sessionInfo: string;
 }
 
 export const TopNav: React.FC<TopNavProps> = (props) => {
-  const { title } = props;
+  const { title, sessionInfo } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [sessionInfo, setSessionInfo] = useState<string>("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedSessionInfo = localStorage.getItem("sessionInfo");
-      if (storedSessionInfo) {
-        setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
-      }
-    }
-  }, []);
   return (
     <>
       <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
