@@ -14,6 +14,7 @@ import {
   passwordLengthIsInvalid,
 } from "@/utils/validations";
 import { API_MESSAGES } from "@/utils/consts";
+import { authenticate, ifLoginValidRedirict } from "@/utils/authFunctions";
 
 interface RegisterPanelProps {
   setShowLogInPanel: Dispatch<SetStateAction<Boolean>>;
@@ -113,13 +114,6 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     return false;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (allFieldsAreValid()) {
-      register();
-    }
-  };
-
   async function register() {
     const response = await fetch(`/api/auth`, {
       method: "PUT",
@@ -132,11 +126,21 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         password: nextBase64.encode(password.value),
       }),
     });
-    const data = await response.json();
+    let data = await response.json();
     if (data.message === API_MESSAGES.duplicateEmail) {
       setEmail({ ...email, error: API_MESSAGES.duplicateEmail });
+    } else if (data.message === API_MESSAGES.success) {
+      data = await authenticate(email.value, password.value);
+      ifLoginValidRedirict(data);
     }
   }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (allFieldsAreValid()) {
+      register();
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>

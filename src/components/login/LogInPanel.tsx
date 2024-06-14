@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import nextBase64 from "next-base64";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import {
@@ -8,6 +7,7 @@ import {
   passwordLengthIsInvalid,
 } from "@/utils/validations";
 import { API_MESSAGES } from "@/utils/consts";
+import { authenticate, ifLoginValidRedirict } from "@/utils/authFunctions";
 
 interface LoginPanelProps {
   setShowLogInPanel: Dispatch<SetStateAction<Boolean>>;
@@ -43,32 +43,16 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
     return false;
   };
 
-  async function authenticate() {
-    const response = await fetch(`/api/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: nextBase64.encode(email.value),
-        password: nextBase64.encode(password.value),
-      }),
-    });
-    const data = await response.json();
-    if (data.message === API_MESSAGES.incorrectLogin) {
-      setPassword({ ...password, error: API_MESSAGES.incorrectLogin });
-    } else if (data.message === API_MESSAGES.success) {
-      localStorage.setItem("sessionInfo", JSON.stringify(data.session));
-    }
-    console.log(data);
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (allFieldsAreValid()) {
-      authenticate();
+      const data = await authenticate(email.value, password.value);
+      if (data.message === API_MESSAGES.incorrectLogin) {
+        setPassword({ ...password, error: API_MESSAGES.incorrectLogin });
+      }
+      ifLoginValidRedirict(data);
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
