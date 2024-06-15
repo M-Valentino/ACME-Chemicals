@@ -16,7 +16,7 @@ export default async function handler(
   response: NextApiResponse
 ): Promise<void> {
   const { headers, method } = request;
-  const { name, email, password } = request.body;
+  const { name, email, password, rememberMe } = request.body;
   const decodedName = name ? nextBase64.decode(name) : "";
   const decodedEmail = email ? nextBase64.decode(email) : "";
   const decodedPassword = password ? nextBase64.decode(password) : "";
@@ -70,19 +70,24 @@ export default async function handler(
           name: rows[0].name,
         };
         const token = jwt.sign(sessionInfo, process.env.JWT_SECRET_KEY);
-
+        console.log(rememberMe);
         response.setHeader(
           "Set-Cookie",
           cookie.serialize("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== "development",
-            maxAge: 60 * 60 * 24, // 1 day
+            maxAge: rememberMe
+              ? // 400 days or 1 day
+                1000 * 60 * 60 * 24 * 400
+              : 1000 * 60 * 60 * 24,
             sameSite: "strict",
             path: "/",
           })
         );
 
-        return response.status(200).json({ message: API_MESSAGES.success, session: sessionInfo });
+        return response
+          .status(200)
+          .json({ message: API_MESSAGES.success, session: sessionInfo });
       } else {
         return response
           .status(401)

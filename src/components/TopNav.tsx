@@ -125,7 +125,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
                       onChange={(e) => window.open(e.value.href, "_self")}
                       options={userMenuOptions}
                       optionLabel="name"
-                      className="w-[98px] md:w-14rem"
+                      className="w-[98px] md:w-14rem shadow-2xl"
                     />
                   </div>
                 )}

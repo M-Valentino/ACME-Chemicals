@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "primereact/button";
+import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import {
   emailIsInvalid,
@@ -25,6 +26,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
     value: "",
     error: "",
   });
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const allFieldsAreValid = () => {
     if (emailIsInvalid(email.value) || emailOrNameIsTooLong(email.value)) {
@@ -46,7 +48,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (allFieldsAreValid()) {
-      const data = await authenticate(email.value, password.value);
+      const data = await authenticate(email.value, password.value, rememberMe);
       if (data.message === API_MESSAGES.incorrectLogin) {
         setPassword({ ...password, error: API_MESSAGES.incorrectLogin });
       }
@@ -84,6 +86,17 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
         <small id="password-help" className=" text-red-800">
           {password.error}
         </small>
+      </div>
+      <div className="mt-1 flex align-items-center">
+        <Checkbox
+          inputId="RememberMe"
+          value={rememberMe}
+          onChange={() => setRememberMe(!rememberMe)}
+          checked={rememberMe}
+        />
+        <label htmlFor="RememberMe" className="ml-2">
+          Remember Me
+        </label>
       </div>
       <Button label="Log in" className="w-full mt-8" type="submit" />
       <p className="mt-4 text-center text-lg">

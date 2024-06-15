@@ -8,7 +8,8 @@ type authMessage = {
 
 export async function authenticate(
   email: string,
-  password: string
+  password: string,
+  rememberMe: boolean
 ): Promise<authMessage> {
   const response = await fetch(`/api/auth`, {
     method: "POST",
@@ -18,6 +19,7 @@ export async function authenticate(
     body: JSON.stringify({
       email: nextBase64.encode(email),
       password: nextBase64.encode(password),
+      rememberMe: rememberMe
     }),
   });
 
