@@ -39,10 +39,10 @@ export default async function handler(
 
   if (method === "PUT") {
     if (
-      nameIsInvalid(name.value) &&
-      emailOrNameIsTooLong(name.value) &&
-      emailIsInvalid(email.value) &&
-      emailOrNameIsTooLong(email.value) &&
+      nameIsInvalid(name.value) ||
+      emailOrNameIsTooLong(name.value) ||
+      emailIsInvalid(email.value) ||
+      emailOrNameIsTooLong(email.value) ||
       passwordLengthIsInvalid(password.value)
     ) {
       return response.status(401).json({ message: API_MESSAGES.notAuthorized });
