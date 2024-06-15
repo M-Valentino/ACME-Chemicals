@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { Squash as Hamburger } from "hamburger-react";
 
@@ -86,9 +87,9 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
   return (
     <>
       <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
-        <div className="flex justify-between items-center h-12 text-white">
+        <div className="flex justify-between items-center h-12">
           <Link href="/">
-            <div className="ml-8 font-bold text-3xl">ACME Chemicals</div>
+            <div className="ml-8 font-bold text-3xl text-white">ACME Chemicals</div>
           </Link>
           <div className="flex justify-end flex-row mr-8">
             <DesktopNavButton name="Products" title={title} href="/products" />
@@ -96,7 +97,9 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             {sessionInfo === "" ? (
               <DesktopNavButton name="Log In" title={title} href="/login" />
             ) : (
-              <div>{sessionInfo}</div>
+              <div className="flex flex-col justify-center ml-8">
+                <Avatar label={sessionInfo.substring(0, 1)} />
+              </div>
             )}
           </div>
         </div>
