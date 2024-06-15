@@ -13,6 +13,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
   const { children, title } = props;
 
   const [sessionInfo, setSessionInfo] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch(`/api/auth`, {
@@ -23,7 +24,6 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.message !== API_MESSAGES.success) {
           localStorage.removeItem("sessionInfo");
         }
@@ -36,8 +36,13 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
       if (storedSessionInfo) {
         setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
       }
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <></>;
+  }
 
   return (
     <>

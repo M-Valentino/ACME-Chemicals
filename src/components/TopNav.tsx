@@ -98,7 +98,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
               <DesktopNavButton name="Log In" title={title} href="/login" />
             ) : (
               <div className="flex flex-col justify-center ml-8">
-                <Avatar label={sessionInfo.substring(0, 1)} />
+                <Avatar label={sessionInfo.substring(0, 1)} shape="circle" />
               </div>
             )}
           </div>
