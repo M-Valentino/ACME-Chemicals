@@ -106,10 +106,12 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
       setConfirmPassword({ ...confirmPassword, error: "" });
     }
     if (
-      name.error === "" &&
-      email.error === "" &&
-      password.error === "" &&
-      confirmPassword.error === ""
+      !nameIsInvalid(name.value) &&
+      !emailOrNameIsTooLong(name.value) &&
+      !emailIsInvalid(email.value) &&
+      !emailOrNameIsTooLong(email.value) &&
+      !passwordLengthIsInvalid(password.value) &&
+      password.value === confirmPassword.value
     ) {
       return true;
     }

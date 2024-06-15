@@ -29,17 +29,11 @@ export const LoginPanel: React.FC<LoginPanelProps> = (
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const allFieldsAreValid = () => {
-    if (emailIsInvalid(email.value) || emailOrNameIsTooLong(email.value)) {
-      setEmail({ ...email, error: "Email is invalid." });
-    } else {
-      setEmail({ ...email, error: "" });
-    }
-    if (passwordLengthIsInvalid(password.value)) {
-      setPassword({ ...password, error: "Password is invalid." });
-    } else {
-      setPassword({ ...password, error: "" });
-    }
-    if (email.error === "" && password.error === "") {
+    if (
+      !emailIsInvalid(email.value) &&
+      !emailOrNameIsTooLong(email.value) &&
+      !passwordLengthIsInvalid(password.value)
+    ) {
       return true;
     }
     return false;
