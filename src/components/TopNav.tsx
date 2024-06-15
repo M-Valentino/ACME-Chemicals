@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
+import { ListBox } from "primereact/listbox";
 import { Squash as Hamburger } from "hamburger-react";
 
 const getIcon = (name: string) => {
@@ -83,13 +84,23 @@ interface TopNavProps {
 
 export const TopNav: React.FC<TopNavProps> = (props) => {
   const { title, sessionInfo } = props;
+
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
+  const userMenuOptions = [
+    { name: "Orders", href: "/orders" },
+    { name: "Settings", href: "/settings" },
+    { name: "Log Out", href: "/logout" },
+  ];
+
   return (
     <>
       <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
         <div className="flex justify-between items-center h-12">
           <Link href="/">
-            <div className="ml-8 font-bold text-3xl text-white">ACME Chemicals</div>
+            <div className="ml-8 font-bold text-3xl text-white">
+              ACME Chemicals
+            </div>
           </Link>
           <div className="flex justify-end flex-row mr-8">
             <DesktopNavButton name="Products" title={title} href="/products" />
@@ -97,9 +108,24 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             {sessionInfo === "" ? (
               <DesktopNavButton name="Log In" title={title} href="/login" />
             ) : (
-              <div className="flex flex-col justify-center ml-8">
-                <Avatar label={sessionInfo.substring(0, 1)} shape="circle" />
-              </div>
+              <>
+                <div
+                  className="flex flex-col justify-center ml-8 cursor-pointer"
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                >
+                  <Avatar label={sessionInfo.substring(0, 1)} shape="circle" />
+                </div>
+                {userMenuOpen && (
+                  <div className=" absolute top-12 right-0">
+                    <ListBox
+                      onChange={(e) => window.open(e.value.href, "_self")}
+                      options={userMenuOptions}
+                      optionLabel="name"
+                      className="w-full md:w-14rem"
+                    />
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
