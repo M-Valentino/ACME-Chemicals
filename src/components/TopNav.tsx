@@ -110,18 +110,22 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             ) : (
               <>
                 <div
-                  className="flex flex-col justify-center ml-8 cursor-pointer"
+                  className="flex flex-col justify-center ml-8"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                 >
-                  <Avatar label={sessionInfo.substring(0, 1)} shape="circle" />
+                  <Avatar
+                    label={sessionInfo.substring(0, 1)}
+                    shape="circle"
+                    className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg"
+                  />
                 </div>
                 {userMenuOpen && (
-                  <div className=" absolute top-12 right-0">
+                  <div className="absolute top-12 right-0">
                     <ListBox
                       onChange={(e) => window.open(e.value.href, "_self")}
                       options={userMenuOptions}
                       optionLabel="name"
-                      className="w-full md:w-14rem"
+                      className="w-[98px] md:w-14rem"
                     />
                   </div>
                 )}
