@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import nextBase64 from "next-base64";
 import { Button } from "primereact/button";
+import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import { passwordStrength } from "check-password-strength";
 import {
@@ -46,6 +47,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     text: string;
     color: string;
   }>({ text: "", color: "transparent" });
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   useEffect(() => {
     if (password.value !== "") {
@@ -130,7 +132,7 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
     if (data.message === API_MESSAGES.duplicateEmail) {
       setEmail({ ...email, error: API_MESSAGES.duplicateEmail });
     } else if (data.message === API_MESSAGES.success) {
-      data = await authenticate(email.value, password.value);
+      data = await authenticate(email.value, password.value, rememberMe);
       ifLoginValidRedirict(data);
     }
   }
@@ -213,6 +215,17 @@ export const RegisterPanel: React.FC<RegisterPanelProps> = ({
         <small id="confirm-password-help" className=" text-red-800">
           {confirmPassword.error}
         </small>
+      </div>
+      <div className="mt-1 flex align-items-center">
+        <Checkbox
+          inputId="RememberMe"
+          value={rememberMe}
+          onChange={() => setRememberMe(!rememberMe)}
+          checked={rememberMe}
+        />
+        <label htmlFor="RememberMe" className="ml-2">
+          Remember Me
+        </label>
       </div>
       <Button label="Register" className="w-full mt-8" type="submit" />
     </form>
