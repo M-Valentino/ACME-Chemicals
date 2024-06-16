@@ -13,13 +13,14 @@ export default function Logout() {
     })
       .then((res) => res.json())
       .then((data) => {
+        localStorage.removeItem("sessionInfo");
         if (data.message !== API_MESSAGES.success) {
           setError(
             "Error logging you out. Please delete all cookies for this site."
           );
+        } else {
+          window.open("/", "_self");
         }
-        localStorage.removeItem("sessionInfo");
-        window.open("/", "_self");
       });
   }, []);
 
