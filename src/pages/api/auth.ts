@@ -34,7 +34,7 @@ export default async function handler(
   };
 
   if (headers["content-type"] !== "application/json") {
-    return response.status(401).json({ message: API_MESSAGES.notAuthorized });
+    return response.status(415).json({ message: API_MESSAGES.notAuthorized });
   }
 
   if (method === "PUT") {
@@ -45,7 +45,7 @@ export default async function handler(
       emailOrNameIsTooLong(decodedEmail) ||
       passwordLengthIsInvalid(decodedPassword)
     ) {
-      return response.status(401).json({ message: API_MESSAGES.notAuthorized });
+      return response.status(400).json({ message: API_MESSAGES.notAuthorized });
     }
     try {
       if (await emailAlreadyExists()) {
@@ -60,7 +60,7 @@ export default async function handler(
           decodedPassword
         )});`);
 
-      return response.status(200).json({ message: API_MESSAGES.success });
+      return response.status(201).json({ message: API_MESSAGES.success });
     } catch (error) {
       console.error("Error processing request:", error);
       return response
@@ -101,7 +101,7 @@ export default async function handler(
         );
 
         return response
-          .status(200)
+          .status(201)
           .json({ message: API_MESSAGES.success, session: sessionInfo });
       } else {
         return response
@@ -120,9 +120,7 @@ export default async function handler(
       const token = cookies.token;
 
       if (!token) {
-        return response
-          .status(401)
-          .json({ message: API_MESSAGES.notAuthorized });
+        return response.status(200).json({ message: API_MESSAGES.notLoggedIn });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -148,5 +146,5 @@ export default async function handler(
     );
     return response.status(200).json({ message: API_MESSAGES.success });
   }
-  return response.status(401).json({ message: API_MESSAGES.notAuthorized });
+  return response.status(405).json({ message: API_MESSAGES.notAuthorized });
 }
