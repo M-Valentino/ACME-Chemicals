@@ -77,21 +77,53 @@ const MobileNavButton = ({ name, href }: NavButtonProps) => {
   );
 };
 
-interface TopNavProps {
-  title: string;
+type CurentUserUIProps = {
   sessionInfo: string;
-}
+};
 
-export const TopNav: React.FC<TopNavProps> = (props) => {
-  const { title, sessionInfo } = props;
-
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
   const userMenuOptions = [
     { name: "Orders", href: "/orders" },
     { name: "Settings", href: "/settings" },
     { name: "Log Out", href: "/logout" },
   ];
+  return (
+    <>
+      <div
+        className="flex flex-col justify-center ml-8"
+        onClick={() => setUserMenuOpen(!userMenuOpen)}
+      >
+        <Avatar
+          label={sessionInfo.substring(0, 1)}
+          shape="circle"
+          className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg"
+        />
+      </div>
+      {userMenuOpen && (
+        <div className="absolute top-12 right-0">
+          <ListBox
+            onChange={(e) => window.open(e.value.href, "_self")}
+            options={userMenuOptions}
+            optionLabel="name"
+            className="w-[98px] md:w-14rem shadow-2xl"
+          />
+        </div>
+      )}
+    </>
+  );
+};
+
+interface TopNavProps {
+  title: string;
+  sessionInfo: string;
+  sessionParsed: boolean;
+}
+
+export const TopNav: React.FC<TopNavProps> = (props) => {
+  const { title, sessionInfo, sessionParsed } = props;
+
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -106,30 +138,15 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             <DesktopNavButton name="Products" title={title} href="/products" />
             <DesktopNavButton name="Cart" title={title} href="/cart" />
             {sessionInfo === "" ? (
-              <DesktopNavButton name="Log In" title={title} href="/login" />
-            ) : (
               <>
-                <div
-                  className="flex flex-col justify-center ml-8"
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                >
-                  <Avatar
-                    label={sessionInfo.substring(0, 1)}
-                    shape="circle"
-                    className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg"
-                  />
-                </div>
-                {userMenuOpen && (
-                  <div className="absolute top-12 right-0">
-                    <ListBox
-                      onChange={(e) => window.open(e.value.href, "_self")}
-                      options={userMenuOptions}
-                      optionLabel="name"
-                      className="w-[98px] md:w-14rem shadow-2xl"
-                    />
-                  </div>
+                {/* If user is logged in, we don't want to show this button for a
+                split second while the session info hasn't finished being parsed. */}
+                {sessionParsed && (
+                  <DesktopNavButton name="Log In" title={title} href="/login" />
                 )}
               </>
+            ) : (
+              <CurentUserUI sessionInfo={sessionInfo} />
             )}
           </div>
         </div>

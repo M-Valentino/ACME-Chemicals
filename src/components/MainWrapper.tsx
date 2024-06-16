@@ -13,7 +13,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
   const { children, title } = props;
 
   const [sessionInfo, setSessionInfo] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [sessionParsed, setSessionParsed] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(`/api/auth`, {
@@ -36,20 +36,16 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
       if (storedSessionInfo) {
         setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
       }
-      setLoading(false);
+      setSessionParsed(true);
     }
   }, []);
-
-  if (loading) {
-    return <></>;
-  }
 
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <TopNav title={title} sessionInfo={sessionInfo} />
+      <TopNav title={title} sessionInfo={sessionInfo} sessionParsed={sessionParsed} />
       <main className="mt-12 min-h-[80vh]">{children}</main>
       <Footer />
     </>
