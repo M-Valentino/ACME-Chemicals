@@ -135,7 +135,18 @@ export default async function handler(
         .status(500)
         .json({ message: API_MESSAGES.internalServerError });
     }
+  } else if (method === "DELETE") {
+    response.setHeader(
+      "Set-Cookie",
+      cookie.serialize("token", "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== "development",
+        expires: new Date(0),
+        sameSite: "strict",
+        path: "/",
+      })
+    );
+    return response.status(200).json({ message: API_MESSAGES.success });
   }
-
   return response.status(401).json({ message: API_MESSAGES.notAuthorized });
 }
