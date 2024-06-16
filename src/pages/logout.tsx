@@ -18,6 +18,7 @@ export default function Logout() {
             "Error logging you out. Please delete all cookies for this site."
           );
         }
+        localStorage.removeItem("sessionInfo");
         window.open("/", "_self");
       });
   }, []);

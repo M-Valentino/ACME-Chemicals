@@ -93,8 +93,8 @@ export default async function handler(
             secure: process.env.NODE_ENV !== "development",
             maxAge: rememberMe
               ? // 400 days or 1 day
-                1000 * 60 * 60 * 24 * 400
-              : 1000 * 60 * 60 * 24,
+                60 * 60 * 24 * 400
+              : 60 * 60 * 24,
             sameSite: "strict",
             path: "/",
           })
