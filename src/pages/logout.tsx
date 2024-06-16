@@ -3,7 +3,7 @@ import { API_MESSAGES } from "@/utils/consts";
 
 export default function Logout() {
   const [error, setError] = useState<string>("");
-  
+
   useEffect(() => {
     fetch(`/api/auth`, {
       method: "DELETE",
@@ -15,7 +15,7 @@ export default function Logout() {
       .then((data) => {
         if (data.message !== API_MESSAGES.success) {
           setError(
-            "Error logging you out. Please delete all cookies for this page."
+            "Error logging you out. Please delete all cookies for this site."
           );
         }
         window.open("/", "_self");
