@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { ListBox } from "primereact/listbox";
 import { Squash as Hamburger } from "hamburger-react";
+import { API_MESSAGES } from "@/utils/consts";
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -116,12 +117,38 @@ const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
 
 interface TopNavProps {
   title: string;
-  sessionInfo: string;
-  sessionParsed: boolean;
 }
 
 export const TopNav: React.FC<TopNavProps> = (props) => {
-  const { title, sessionInfo, sessionParsed } = props;
+  const { title } = props;
+
+  const [sessionInfo, setSessionInfo] = useState<string>("");
+  const [sessionParsed, setSessionParsed] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetch(`/api/auth`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message !== API_MESSAGES.success) {
+          localStorage.removeItem("sessionInfo");
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedSessionInfo = localStorage.getItem("sessionInfo");
+      if (storedSessionInfo) {
+        setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
+      }
+      setSessionParsed(true);
+    }
+  }, []);
 
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -139,8 +166,6 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             <DesktopNavButton name="Cart" title={title} href="/cart" />
             {sessionInfo === "" ? (
               <>
-                {/* If user is logged in, we don't want to show this button for a
-                split second while the session info hasn't finished being parsed. */}
                 {sessionParsed && (
                   <DesktopNavButton name="Log In" title={title} href="/login" />
                 )}

@@ -1,8 +1,7 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import Head from "next/head";
 import { Footer } from "./Footer";
 import { TopNav } from "./TopNav";
-import { API_MESSAGES } from "@/utils/consts";
 
 interface MainWrapperProps {
   children: ReactNode;
@@ -12,40 +11,12 @@ interface MainWrapperProps {
 export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
   const { children, title } = props;
 
-  const [sessionInfo, setSessionInfo] = useState<string>("");
-  const [sessionParsed, setSessionParsed] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetch(`/api/auth`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message !== API_MESSAGES.success) {
-          localStorage.removeItem("sessionInfo");
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedSessionInfo = localStorage.getItem("sessionInfo");
-      if (storedSessionInfo) {
-        setSessionInfo(JSON.parse(storedSessionInfo)["name"]);
-      }
-      setSessionParsed(true);
-    }
-  }, []);
-
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <TopNav title={title} sessionInfo={sessionInfo} sessionParsed={sessionParsed} />
+      <TopNav title={title} />
       <main className="mt-12 min-h-[80vh]">{children}</main>
       <Footer />
     </>
