@@ -1,4 +1,7 @@
 import crypto from "crypto";
+import type { NextApiRequest, NextApiResponse } from "next";
+let cookie = require("cookie");
+let jwt = require("jsonwebtoken");
 
 const key = Buffer.from(process.env.AES_KEY as string, "hex");
 
@@ -20,3 +23,20 @@ export const decrypt = (text: string) => {
 
   return decrypted.toString();
 };
+
+// Middleware function
+export async function jwtIsValid(request: NextApiRequest, userId: Number) {
+  try {
+    const cookies = cookie.parse(request.headers.cookie || "");
+    const token = cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+    if (decoded.userId === userId) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return false;
+  }
+}
