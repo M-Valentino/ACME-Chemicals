@@ -1,4 +1,3 @@
-import "server-only";
 import crypto from "crypto";
 
 const key = Buffer.from(process.env.AES_KEY as string, "hex");
