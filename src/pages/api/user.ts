@@ -13,7 +13,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
       const { rows } = await sql`SELECT * from users WHERE id=${userId as string};`;
       return response
         .status(200)
-        .json({ message: API_MESSAGES.success, data: rows });
+        .json({ message: API_MESSAGES.success, data: rows[0] });
     }
   }
   return response.status(401).json({ message: "not authorized" });

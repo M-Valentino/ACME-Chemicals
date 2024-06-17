@@ -19,7 +19,7 @@ export async function authenticate(
     body: JSON.stringify({
       email: nextBase64.encode(email),
       password: nextBase64.encode(password),
-      rememberMe: rememberMe
+      rememberMe: rememberMe,
     }),
   });
 
@@ -35,4 +35,14 @@ export const ifLoginValidRedirict = (data: {
     localStorage.setItem("sessionInfo", JSON.stringify(data.session));
     window.open("/products", "_self");
   }
+};
+
+export const getCurrentUser = () => {
+  if (typeof window !== "undefined") {
+    const storedSessionInfo = localStorage.getItem("sessionInfo");
+    if (storedSessionInfo) {
+      return JSON.parse(storedSessionInfo);
+    }
+  }
+  return;
 };
