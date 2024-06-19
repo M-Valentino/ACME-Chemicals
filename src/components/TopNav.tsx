@@ -50,7 +50,7 @@ const DesktopNavButton = ({ href, name, title }: NavButtonProps) => {
           >
             {getIcon(name)}
           </svg>
-          <div className="text-lg">{name}</div>
+          <div className="text-lg ml-1">{name}</div>
         </div>
         <div
           className={`w-full border-t-2 ${
@@ -73,7 +73,7 @@ const MobileNavButton = ({ name, href }: NavButtonProps) => {
       >
         {getIcon(name)}
       </svg>
-      <div className="text-lg">{name}</div>
+      <div className="text-lg ml-1">{name}</div>
     </Button>
   );
 };
