@@ -18,16 +18,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
         <title>{title}</title>
       </Head>
       <TopNav title={title} />
-      <main
-        className={`mt-12 min-h-[75vh] ${
-          showBG && "bg-[url('/molecule.svg')] bg-no-repeat bg"
-        }`}
-        style={{
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center ",
-          backgroundSize: "75%"
-        }}
-      >
+      <main className={`mt-12 min-h-[75vh] ${showBG && "mainBG"}`}>
         {children}
       </main>
       <Footer />

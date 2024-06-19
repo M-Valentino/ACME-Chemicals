@@ -7,7 +7,7 @@ export default function Login() {
   const [showLogInPanel, setShowLogInPanel] = useState<Boolean>(true);
   return (
     <MainWrapper title={showLogInPanel ? "Log In" : "Register"} showBG>
-      <h1 className="mt-24 text-6xl text-primary font-extrabold text-center">
+      <h1 className="pt-12 text-6xl text-primary font-extrabold text-center">
         Welcome back!
       </h1>
       <div className="border-secondary bg-white border-2 max-w-[480px] p-8 m-auto rounded-md mt-8">
