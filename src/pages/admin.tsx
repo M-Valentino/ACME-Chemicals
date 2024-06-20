@@ -60,13 +60,16 @@ export default function Admin() {
     { id: "size", label: "Size" },
   ];
 
-  async function createProduct() {
+  async function createProduct(event: React.FormEvent) {
+    event.preventDefault();
+
     const response = await fetch(`/api/products`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        userId: userInfo.id,
         name: nextBase64.encode(newProduct.name),
         imgsrc: nextBase64.encode(newProduct.imgsrc),
         description: nextBase64.encode(newProduct.description),
@@ -74,7 +77,13 @@ export default function Admin() {
         size: nextBase64.encode(newProduct.size),
       }),
     });
-    let data = await response.json();
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log("Product added successfully:", data);
+    } else {
+      console.error("Error adding product:", data);
+    }
   }
 
   return (
@@ -83,7 +92,7 @@ export default function Admin() {
         Add Product
       </h1>
       {userInfo.isadmin && (
-        <form onSubmit={createProduct} className=" max-w-xl m-auto mt-8 mb-8">
+        <form onSubmit={createProduct} className="max-w-xl m-auto mt-8 mb-8">
           {productFields.map((field) => (
             <div key={field.id} className="mt-1 flex flex-col gap-1">
               <label htmlFor={field.id} className="text-sm">
