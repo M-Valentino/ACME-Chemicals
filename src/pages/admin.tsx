@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import nextBase64 from "next-base64";
 import { MainWrapper } from "@/components/MainWrapper";
 import { API_MESSAGES } from "@/utils/consts";
 import { getCurrentUser } from "@/utils/authFunctions";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
 export default function Admin() {
   const [userInfo, setUserInfo] = useState<{
@@ -10,6 +13,20 @@ export default function Admin() {
     email: string;
     isadmin: boolean;
   }>({ id: -1, name: "", email: "", isadmin: false });
+
+  const [newProduct, setNewProduct] = useState<{
+    imgsrc: string;
+    description: string;
+    price: string;
+    size: string;
+    name: string;
+  }>({
+    imgsrc: "",
+    description: "",
+    price: "",
+    size: "",
+    name: "",
+  });
 
   useEffect(() => {
     const currentUser = getCurrentUser();
@@ -35,9 +52,58 @@ export default function Admin() {
     }
   }, []);
 
+  const productFields = [
+    { id: "name", label: "Name" },
+    { id: "imgsrc", label: "Image Source" },
+    { id: "description", label: "Description" },
+    { id: "price", label: "Price" },
+    { id: "size", label: "Size" },
+  ];
+
+  async function createProduct() {
+    const response = await fetch(`/api/products`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: nextBase64.encode(newProduct.name),
+        imgsrc: nextBase64.encode(newProduct.imgsrc),
+        description: nextBase64.encode(newProduct.description),
+        price: nextBase64.encode(newProduct.price),
+        size: nextBase64.encode(newProduct.size),
+      }),
+    });
+    let data = await response.json();
+  }
+
   return (
     <MainWrapper title="Admin">
-      {userInfo.isadmin && <div className="mt-24">admin</div>}
+      <h1 className="pt-12 text-6xl text-primary font-extrabold text-center">
+        Add Product
+      </h1>
+      {userInfo.isadmin && (
+        <form onSubmit={createProduct} className=" max-w-xl m-auto mt-8 mb-8">
+          {productFields.map((field) => (
+            <div key={field.id} className="mt-1 flex flex-col gap-1">
+              <label htmlFor={field.id} className="text-sm">
+                {field.label}
+              </label>
+              <InputText
+                id={field.id}
+                value={newProduct[field.id as keyof typeof newProduct]}
+                onChange={(e) =>
+                  setNewProduct({
+                    ...newProduct,
+                    [field.id]: e.target.value,
+                  })
+                }
+              />
+            </div>
+          ))}
+          <Button label="Add Product" className="w-full mt-8" type="submit" />
+        </form>
+      )}
     </MainWrapper>
   );
 }
