@@ -154,7 +154,10 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
 
   return (
     <>
-      <div className="desktopMenu top-0 w-full bg-primary fixed z-10">
+      <nav
+        className="desktopMenu top-0 w-full bg-primary fixed z-10"
+        aria-label="Desktop Navigation"
+      >
         <div className="flex justify-between items-center h-12">
           <Link href="/">
             <div className="ml-8 font-bold text-3xl text-white">
@@ -175,11 +178,12 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             )}
           </div>
         </div>
-      </div>
-      <div
+      </nav>
+      <nav
         className={`mobileMenu fixed top-0 z-10 h-fit w-full bg-primary ${
           menuOpen ? " shadow-2xl" : ""
         }`}
+        aria-label="Mobile Navigation"
       >
         <div className="ml-4 font-bold text-2xl text-white mt-2">
           <Link href="/">ACME Chemicals</Link>
@@ -196,7 +200,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             </>
           )}
         </div>
-      </div>
+      </nav>
     </>
   );
 };

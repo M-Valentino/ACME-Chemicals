@@ -19,7 +19,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = (props) => {
       </Head>
       <TopNav title={title} />
       <main
-        className={`pt-12 min-h-[75vh] m-auto max-w-[1920px] ${
+        className={`pt-12 min-h-[75vh] m-auto max-w-[2200px] ${
           showBG && "mainBG"
         }`}
       >
