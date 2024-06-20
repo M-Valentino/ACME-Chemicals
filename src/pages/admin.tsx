@@ -88,30 +88,32 @@ export default function Admin() {
 
   return (
     <MainWrapper title="Admin">
-      <h1 className="pt-12 text-6xl text-primary font-extrabold text-center">
-        Add Product
-      </h1>
       {userInfo.isadmin && (
-        <form onSubmit={createProduct} className="max-w-xl m-auto mt-8 mb-8">
-          {productFields.map((field) => (
-            <div key={field.id} className="mt-1 flex flex-col gap-1">
-              <label htmlFor={field.id} className="text-sm">
-                {field.label}
-              </label>
-              <InputText
-                id={field.id}
-                value={newProduct[field.id as keyof typeof newProduct]}
-                onChange={(e) =>
-                  setNewProduct({
-                    ...newProduct,
-                    [field.id]: e.target.value,
-                  })
-                }
-              />
-            </div>
-          ))}
-          <Button label="Add Product" className="w-full mt-8" type="submit" />
-        </form>
+        <>
+          <h1 className="pt-12 text-6xl text-primary font-extrabold text-center">
+            Add Product
+          </h1>
+          <form onSubmit={createProduct} className="max-w-xl m-auto mt-8 mb-8">
+            {productFields.map((field) => (
+              <div key={field.id} className="mt-1 flex flex-col gap-1">
+                <label htmlFor={field.id} className="text-sm">
+                  {field.label}
+                </label>
+                <InputText
+                  id={field.id}
+                  value={newProduct[field.id as keyof typeof newProduct]}
+                  onChange={(e) =>
+                    setNewProduct({
+                      ...newProduct,
+                      [field.id]: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            ))}
+            <Button label="Add Product" className="w-full mt-8" type="submit" />
+          </form>
+        </>
       )}
     </MainWrapper>
   );

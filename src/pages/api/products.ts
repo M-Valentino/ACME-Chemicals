@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { jwtIsValid } from "@/utils/encryption";
 import nextBase64 from "next-base64";
 import { sql } from "@vercel/postgres";
+import { API_MESSAGES } from "@/utils/consts";
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   const { method } = request;
@@ -39,10 +40,12 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
           .json({ message: "Product added successfully" });
       } catch (error) {
         console.error("Error inserting product data:", error);
-        return response.status(500).json({ message: "Internal server error" });
+        return response
+          .status(500)
+          .json({ message: API_MESSAGES.internalServerError });
       }
     }
   }
 
-  return response.status(401).json({ message: "Not authorized" });
+  return response.status(401).json({ message: API_MESSAGES.notAuthorized });
 };
