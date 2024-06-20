@@ -11,7 +11,7 @@ export default function Login() {
         className="pt-12 text-6xl text-primary font-extrabold text-center"
         style={{
           textShadow:
-            "0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #fff, 0 0 10px #fff, 0 0 12px #fff",
+            "0 0 1px #fff, 0 0 2px #fff, 0 0 3.5px #fff, 0 0 5.5px #fff, 0 0 7px #fff, 0 0 9px #fff, 0 0 11.5px #fff",
         }}
       >
         {showLogInPanel ? "Welcome back!" : "Create Your Account"}
