@@ -96,7 +96,7 @@ const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-7 cursor-pointer"
+          className="size-7 cursor-pointer transition-transform transform hover:-rotate-12 ease-in duration-200"
         >
           <path
             fill-rule="evenodd"
