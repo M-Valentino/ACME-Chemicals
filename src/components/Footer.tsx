@@ -40,7 +40,7 @@ const footerData = [
 
 export const Footer = () => {
   return (
-    <div className="bg-primary text-white p-8">
+    <footer className="bg-primary text-white p-8">
       <div className="md:flex md:flex-row md:justify-around xs:grid xs:grid-cols-2 xs:gap-4">
         {footerData.map((section) => (
           <div key={section.title}>
@@ -55,7 +55,10 @@ export const Footer = () => {
           </div>
         ))}
       </div>
-      <p className="mt-4">This is not a real company or store page. Website designed and coded by Mark Valentino.</p>
-    </div>
+      <p className="mt-4">
+        This is not a real company or store page. Website designed and coded by
+        Mark Valentino.
+      </p>
+    </footer>
   );
 };
