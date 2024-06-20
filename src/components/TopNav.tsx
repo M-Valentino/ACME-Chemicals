@@ -92,13 +92,13 @@ const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
   return (
     <>
       <div
-        className="flex flex-col justify-center ml-8"
+        className="flex flex-col justify-center ml-1 w-[111.333px]"
         onClick={() => setUserMenuOpen(!userMenuOpen)}
       >
         <Avatar
           label={sessionInfo.substring(0, 1)}
           shape="circle"
-          className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg"
+          className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg ml-auto"
         />
       </div>
       {userMenuOpen && (
@@ -169,8 +169,10 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             <DesktopNavButton name="Cart" title={title} href="/cart" />
             {sessionInfo === "" ? (
               <>
-                {sessionParsed && (
+                {sessionParsed ? (
                   <DesktopNavButton name="Log In" title={title} href="/login" />
+                ) : (
+                  <div className="w-[111.333px] ml-1"></div>
                 )}
               </>
             ) : (
