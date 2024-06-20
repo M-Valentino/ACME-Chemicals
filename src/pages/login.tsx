@@ -14,7 +14,7 @@ export default function Login() {
             "0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #fff, 0 0 10px #fff, 0 0 12px #fff",
         }}
       >
-        Welcome back!
+        {showLogInPanel ? "Welcome back!" : "Create Your Account"}
       </h1>
       <div className="border-secondary bg-white border-2 max-w-[480px] p-8 m-auto rounded-md mt-8">
         {showLogInPanel ? (
