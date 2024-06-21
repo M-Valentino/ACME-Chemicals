@@ -24,20 +24,29 @@ export default function Products() {
   }>({});
 
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
+  const [searchBar, setSearchBar] = useState<string>("");
 
   const [products, setProducts] = useState<ProductCardType[]>([]);
 
-  useEffect(() => {
-    fetch(`/api/products?sortBy=${nextBase64.encode(selectedSort.name)}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+  async function updateProducts() {
+    fetch(
+      `/api/products?sortBy=${nextBase64.encode(
+        selectedSort.name
+      )}&searchText=${nextBase64.encode(searchBar)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
       });
+  }
+  useEffect(() => {
+    updateProducts();
   }, [selectedSort]);
 
   return (
@@ -94,8 +103,14 @@ export default function Products() {
                   className="md:flex-grow h-11 xs:w-[calc(100%-6rem)]"
                   type="text"
                   placeholder="Search"
+                  value={searchBar}
+                  onChange={(e) => setSearchBar(e.target.value)}
                 />
-                <Button label="Search" className="ml-2 md:w-44 h-11" />
+                <Button
+                  label="Search"
+                  className="ml-2 md:w-44 h-11"
+                  onClick={() => updateProducts()}
+                />
               </div>
             </div>
             <div className="flex flex-row flex-wrap">

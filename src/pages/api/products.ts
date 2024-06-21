@@ -6,7 +6,7 @@ import { API_MESSAGES } from "@/utils/consts";
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   const { headers, method, query } = request;
-  const { sortBy } = query;
+  const { sortBy, searchText } = query;
   const { userId, name, imgsrc, description, price, size } = request.body;
 
   if (headers["content-type"] !== "application/json") {
@@ -24,7 +24,12 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
           orderBy = "ORDER BY price DESC";
         }
       }
-      const queryText = `SELECT * FROM products ${orderBy};`;
+      let textQuery = "";
+      if (searchText) {
+        const searchTextDecoded = nextBase64.decode(searchText as string);
+        textQuery = `WHERE name ILIKE '%${searchTextDecoded}%'`;
+      }
+      const queryText = `SELECT * FROM products ${textQuery} ${orderBy};`;
       const { rows } = await sql.query(queryText);
 
       return response.status(200).json(rows);
