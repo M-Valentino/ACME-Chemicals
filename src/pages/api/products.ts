@@ -5,12 +5,31 @@ import { sql } from "@vercel/postgres";
 import { API_MESSAGES } from "@/utils/consts";
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
-  const { method } = request;
+  const { method, query } = request;
+  const { sortBy } = query;
   const { userId, name, imgsrc, description, price, size } = request.body;
 
   if (method === "GET") {
-    const { rows } = await sql`SELECT * from products;`;
-    return response.status(200).json(rows);
+    try {
+      const sortByDecoded = nextBase64.decode(sortBy as string);
+      let orderBy = "";
+      if (sortBy) {
+        if (sortByDecoded === "Lowest Price") {
+          orderBy = "ORDER BY price ASC";
+        } else if (sortByDecoded === "Highest Price") {
+          orderBy = "ORDER BY price DESC";
+        }
+      }
+      const queryText = `SELECT * FROM products ${orderBy};`;
+      const { rows } = await sql.query(queryText);
+      
+      return response.status(200).json(rows);
+    } catch (error) {
+      console.error("Error fetching products:", error);  // Log the error
+      return response
+        .status(500)
+        .json({ message: API_MESSAGES.internalServerError });
+    }
   } else if (method === "PUT") {
     const { rows } = await sql`SELECT isadmin from users WHERE id=${
       userId as string

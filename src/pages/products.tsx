@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import nextBase64 from "next-base64";
 import { FilterMenu } from "@/components/products/FilterMenu";
 import { ProductCard, ProductCardType } from "@/components/ProductCard";
 import { Chip } from "primereact/chip";
@@ -27,12 +28,14 @@ export default function Products() {
   const [products, setProducts] = useState<ProductCardType[]>([]);
 
   useEffect(() => {
-    fetch(`/api/products`, { method: "GET" })
+    fetch(`/api/products?sortBy=${nextBase64.encode(selectedSort.name)}`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
       });
-  }, []);
+  }, [selectedSort]);
 
   return (
     <MainWrapper title="Products">
