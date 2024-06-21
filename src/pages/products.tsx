@@ -30,6 +30,9 @@ export default function Products() {
   useEffect(() => {
     fetch(`/api/products?sortBy=${nextBase64.encode(selectedSort.name)}`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => res.json())
       .then((data) => {

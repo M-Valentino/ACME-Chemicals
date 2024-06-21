@@ -7,7 +7,12 @@ export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ProductCardType[]>([]);
 
   useEffect(() => {
-    fetch(`/api/products`, { method: "GET" })
+    fetch(`/api/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
