@@ -82,7 +82,7 @@ type CurentUserUIProps = {
   sessionInfo: string;
 };
 
-const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
+const CurentUserUIDesktop = ({ sessionInfo }: CurentUserUIProps) => {
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
   const userMenuOptions = [
     { name: "Orders", href: "/orders" },
@@ -92,6 +92,54 @@ const CurentUserUI = ({ sessionInfo }: CurentUserUIProps) => {
   return (
     <div className="ml-1 w-[111.333px] flex flex-row justify-between">
       <div className=" ml-8 flex flex-col justify-center  text-white">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-7 cursor-pointer transition-transform transform hover:-rotate-12 ease-in duration-200"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        className="flex flex-col justify-center"
+        onClick={() => setUserMenuOpen(!userMenuOpen)}
+      >
+        <Avatar
+          label={sessionInfo.substring(0, 1)}
+          shape="circle"
+          className="cursor-pointer transition ease-in-out hover:scale-105 hover:shadow-lg"
+        />
+      </div>
+      {userMenuOpen && (
+        <div className="absolute top-12 right-0">
+          <ListBox
+            onChange={(e) => window.open(e.value.href, "_self")}
+            options={userMenuOptions}
+            optionLabel="name"
+            className="w-[98px] md:w-14rem shadow-2xl"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const CurentUserUIMobile = ({ sessionInfo }: CurentUserUIProps) => {
+  const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
+  
+  const userMenuOptions = [
+    { name: "Orders", href: "/orders" },
+    { name: "Settings", href: "/settings" },
+    { name: "Log Out", href: "/logout" },
+  ];
+  return (
+    <div className="ml-1 w-[80px] flex flex-row justify-between absolute top-0 right-20 h-12">
+      <div className=" flex flex-col justify-center  text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -190,7 +238,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
                 )}
               </>
             ) : (
-              <CurentUserUI sessionInfo={sessionInfo} />
+              <CurentUserUIDesktop sessionInfo={sessionInfo} />
             )}
           </div>
         </div>
@@ -204,6 +252,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
         <div className="ml-4 font-bold text-2xl text-white mt-2">
           <Link href="/">ACME Chemicals</Link>
         </div>
+        <CurentUserUIMobile sessionInfo={sessionInfo} />
         <div className="absolute top-0 right-2">
           <Hamburger toggled={menuOpen} toggle={setMenuOpen} color="#fff" />
         </div>
@@ -212,9 +261,12 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
             <>
               <MobileNavButton name="Products" title={title} href="/products" />
               <MobileNavButton name="Cart" title={title} href="/cart" />
-              <MobileNavButton name="Log In" title={title} href="/login" />
+              {sessionInfo === "" && (
+                <MobileNavButton name="Log In" title={title} href="/login" />
+              )}
             </>
           )}
+
         </div>
       </nav>
     </>
