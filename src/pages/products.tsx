@@ -39,7 +39,9 @@ export default function Products() {
     fetch(
       `/api/products?sortBy=${nextBase64.encode(
         selectedSort.name
-      )}&searchText=${nextBase64.encode(searchBar)}`,
+      )}&searchText=${nextBase64.encode(searchBar)}&minPrice=${
+        priceRange[0]
+      }&maxPrice=${priceRange[1]}`,
       {
         method: "GET",
         headers: {
