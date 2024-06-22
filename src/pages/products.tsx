@@ -76,6 +76,7 @@ export default function Products() {
             setPriceRange={setPriceRange}
             checkboxState={checkboxState}
             setCheckboxState={setCheckboxState}
+            updateProducts={updateProducts}
           />
         </Sidebar>
       </div>
@@ -92,6 +93,7 @@ export default function Products() {
                   setPriceRange={setPriceRange}
                   checkboxState={checkboxState}
                   setCheckboxState={setCheckboxState}
+                  updateProducts={updateProducts}
                 />
               </div>
             </div>
