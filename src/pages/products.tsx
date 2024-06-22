@@ -59,7 +59,7 @@ export default function Products() {
   }
   useEffect(() => {
     updateProducts();
-  }, [selectedSort]);
+  }, [selectedSort, checkboxState]);
 
   return (
     <MainWrapper title="Products">
