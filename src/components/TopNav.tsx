@@ -212,7 +212,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
     }
   }, []);
 
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -245,7 +245,7 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
       </nav>
       <nav
         className={`mobileMenu fixed top-0 z-10 h-fit w-full bg-primary ${
-          menuOpen ? " shadow-2xl" : ""
+          hamburgerMenuOpen ? " shadow-2xl" : ""
         }`}
         aria-label="Mobile Navigation"
       >
@@ -254,10 +254,10 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
         </div>
         <CurentUserUIMobile sessionInfo={sessionInfo} />
         <div className="absolute top-0 right-2">
-          <Hamburger toggled={menuOpen} toggle={setMenuOpen} color="#fff" />
+          <Hamburger toggled={hamburgerMenuOpen} toggle={setHamburgerMenuOpen} color="#fff" />
         </div>
         <div className="flex flex-col bg-primary mt-1 pb-1">
-          {menuOpen && (
+          {hamburgerMenuOpen && (
             <>
               <MobileNavButton name="Products" title={title} href="/products" />
               <MobileNavButton name="Cart" title={title} href="/cart" />
