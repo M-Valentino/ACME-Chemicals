@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import nextBase64 from "next-base64";
 import { FilterMenu } from "@/components/products/FilterMenu";
 import { ProductCard, ProductCardType } from "@/components/ProductCard";
@@ -23,6 +23,13 @@ export default function Products() {
     [key: string]: boolean;
   }>({});
 
+  const [chipState, setChipState] = useState<{
+    priceRange: [number, number];
+    filters: {
+      [key: string]: boolean;
+    };
+  }>({ priceRange: [0, 300], filters: {} });
+
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
   const [searchBar, setSearchBar] = useState<string>("");
 
@@ -43,6 +50,11 @@ export default function Products() {
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
+        setChipState({
+          ...chipState,
+          filters: checkboxState,
+          priceRange: priceRange,
+        });
       });
   }
   useEffect(() => {
@@ -115,10 +127,10 @@ export default function Products() {
             </div>
             <div className="flex flex-row flex-wrap">
               <Chip
-                label={`$${priceRange[0]} to $${priceRange[1]}`}
+                label={`$${chipState.priceRange[0]} to $${chipState.priceRange[1]}`}
                 className="mt-2 mr-2"
               />
-              {Object.entries(checkboxState).map(
+              {Object.entries(chipState.filters).map(
                 ([key, value]) =>
                   value && <Chip label={key} key={key} className="mt-2 mr-2" />
               )}
