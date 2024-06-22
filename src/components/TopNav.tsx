@@ -164,7 +164,7 @@ const CurentUserUIMobile = ({ sessionInfo }: CurentUserUIProps) => {
         />
       </div>
       {userMenuOpen && (
-        <div className="absolute top-12 right-0">
+        <div className="absolute top-12 left-4 z-30">
           <ListBox
             onChange={(e) => window.open(e.value.href, "_self")}
             options={userMenuOptions}
