@@ -131,7 +131,7 @@ const CurentUserUIDesktop = ({ sessionInfo }: CurentUserUIProps) => {
 
 const CurentUserUIMobile = ({ sessionInfo }: CurentUserUIProps) => {
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
-  
+
   const userMenuOptions = [
     { name: "Orders", href: "/orders" },
     { name: "Settings", href: "/settings" },
@@ -252,9 +252,13 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
         <div className="ml-4 font-bold text-2xl text-white mt-2">
           <Link href="/">ACME Chemicals</Link>
         </div>
-        <CurentUserUIMobile sessionInfo={sessionInfo} />
+        {sessionInfo !== "" && <CurentUserUIMobile sessionInfo={sessionInfo} />}
         <div className="absolute top-0 right-2">
-          <Hamburger toggled={hamburgerMenuOpen} toggle={setHamburgerMenuOpen} color="#fff" />
+          <Hamburger
+            toggled={hamburgerMenuOpen}
+            toggle={setHamburgerMenuOpen}
+            color="#fff"
+          />
         </div>
         <div className="flex flex-col bg-primary mt-1 pb-1">
           {hamburgerMenuOpen && (
@@ -266,7 +270,6 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
               )}
             </>
           )}
-
         </div>
       </nav>
     </>
