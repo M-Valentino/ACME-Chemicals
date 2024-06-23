@@ -9,7 +9,7 @@ export default function Page() {
       <h1 className="pt-12 text-6xl text-primary font-extrabold text-center">
         {productName}
       </h1>
-      <p>I'll be adding an add to cart functionality and more on this page.</p>
+      <p>I will be adding an add to cart functionality and more on this page.</p>
     </MainWrapper>
   );
 }
