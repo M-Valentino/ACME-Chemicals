@@ -63,7 +63,7 @@ export default function Admin() {
   async function createProduct(event: React.FormEvent) {
     event.preventDefault();
 
-    const response = await fetch(`/api/products`, {
+    const response = await fetch(`/api/product`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
