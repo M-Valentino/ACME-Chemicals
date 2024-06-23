@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { jwtIsValid } from "@/utils/encryption";
 import nextBase64 from "next-base64";
 import { sql } from "@vercel/postgres";
 import { API_MESSAGES } from "@/utils/consts";
