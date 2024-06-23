@@ -41,7 +41,7 @@ export default function Page() {
   return (
     <MainWrapper title={productName as string}>
       {productData !== null && (
-        <div className="flex md:flex-row xs:flex-col justify-between max-w-[1000px] mt-12 md:ml-8 md:mr-8 xs:ml-4 xs:mr-4">
+        <div className="flex md:flex-row xs:flex-col justify-between max-w-[1000px] mt-12 md:ml-8 md:mr-8 xs:ml-4 xs:mr-4 mb-16">
           <Image
             src={productData.imgsrc}
             alt={productData.name}
@@ -49,7 +49,7 @@ export default function Page() {
             height={500}
             className="lg:max-w-[500px] md:max-w-[400px] xs:max-w-[350px] w-full m-auto"
           />
-          <div className="min-w-[280px] md:ml-8 xs:mb-16">
+          <div className="min-w-[280px] md:ml-8">
             <h1 className="md:text-5xl xs:text-4xl xs:mt-6 text-primary font-extrabold text-center">
               {productName}
             </h1>
