@@ -67,7 +67,7 @@ const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
 
 export const Testimonials = () => {
   return (
-    <div className=" bg-slate-100 p-8 ">
+    <div className=" bg-slate-100 md:p-8 xs:p-4">
       <h2 className="text-primary font-bold text-3xl mb-2">
         What Our Customers Say
       </h2>

@@ -21,7 +21,7 @@ export const FeaturedProducts = () => {
 
   return (
     <div className="border-b-2 pb-4 border-primary">
-      <h2 className="text-primary font-bold text-3xl mt-8 ml-8">
+      <h2 className="text-primary font-bold text-3xl mt-8 md:ml-8 xs:ml-4">
         Featured Products
       </h2>
       <Scrollbar
@@ -29,7 +29,7 @@ export const FeaturedProducts = () => {
         thumbXProps={{ className: "thumbX" }}
         trackXProps={{ className: "trackX" }}
       >
-        <div className="flex flex-row ml-8">
+        <div className="flex flex-row md:ml-8 xs:ml-4">
           {products.length > 0 ? (
             products.map((product, index: number) => (
               <ProductCard
