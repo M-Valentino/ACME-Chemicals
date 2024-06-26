@@ -34,6 +34,7 @@ export const FeaturedProducts = () => {
             products.map((product, index: number) => (
               <ProductCard
                 key={index}
+                id={product.id}
                 imgsrc={product.imgsrc}
                 name={product.name}
                 description={product.description}

@@ -6,7 +6,7 @@ import { API_MESSAGES } from "@/utils/consts";
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   const { headers, method, query } = request;
-  const { productName } = query;
+  const { productId } = query;
   const { userId, name, imgsrc, description, price, size } = request.body;
 
   if (headers["content-type"] !== "application/json") {
@@ -15,15 +15,13 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
 
   if (method === "GET") {
     try {
-      if (productName) {
-        console.log(productName)
+      if (productId) {
+        const queryText = `SELECT * from products WHERE id=${
+          productId as string
+        };`;
+        const { rows } = await sql.query(queryText);
 
-      
-      const queryText = `SELECT * from products WHERE name='${nextBase64.decode(productName as string)}';`;
-      console.log(queryText);
-      const { rows } = await sql.query(queryText);
-
-      return response.status(200).json(rows);
+        return response.status(200).json(rows);
       }
     } catch (error) {
       console.error("Error fetching products:", error);

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 export type ProductCardType = {
   key: number;
+  id: number;
   imgsrc: string;
   name: string;
   description: string;
@@ -15,10 +16,10 @@ export type ProductCardType = {
 export const ProductCard: React.FC<ProductCardType> = (
   props: ProductCardType
 ) => {
-  const { key, imgsrc, name, description, price, discount, size } = props;
+  const { key, id, imgsrc, name, description, price, discount, size } = props;
 
   return (
-    <Link href={`/product/${name}`}>
+    <Link href={`/product/${id}`}>
       <div
         className="cursor-pointer min-w-[280px] mr-4 mt-4 max-w-[280px] rounded-md shadow-sm p-4 border-secondary border-2 transition ease-in-out hover:scale-102 active:border-gray-300 active:bg-secondary"
         key={key}

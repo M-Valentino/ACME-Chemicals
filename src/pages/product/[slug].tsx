@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import nextBase64 from "next-base64";
 import { Button } from "primereact/button";
 import { MainWrapper } from "@/components/MainWrapper";
 import { useRouter } from "next/router";
 
 export default function Page() {
   const router = useRouter();
-  const productName = router.query.slug;
+  const productID = router.query.slug;
   const [productData, setProductData] = useState<{
     imgsrc: string;
     description: string;
@@ -16,9 +15,9 @@ export default function Page() {
     name: string;
   } | null>(null);
 
-  async function updateProduct() {
+  async function getProductData() {
     fetch(
-      `/api/product?productName=${nextBase64.encode(productName as string)}`,
+      `/api/product?productId=${productID}`,
       {
         method: "GET",
         headers: {
@@ -33,13 +32,13 @@ export default function Page() {
       });
   }
   useEffect(() => {
-    if (productName !== undefined) {
-      updateProduct();
+    if (productID !== undefined) {
+      getProductData();
     }
-  }, [productName]);
+  }, [productID]);
 
   return (
-    <MainWrapper title={productName as string}>
+    <MainWrapper title={productData?.name as string}>
       {productData !== null && (
         <div className="flex md:flex-row xs:flex-col justify-between max-w-[1000px] mt-12 md:ml-8 md:mr-8 xs:ml-4 xs:mr-4 mb-16">
           <Image
@@ -51,7 +50,7 @@ export default function Page() {
           />
           <div className="min-w-[280px] md:ml-8">
             <h1 className="md:text-5xl xs:text-4xl xs:mt-6 text-primary font-extrabold text-center">
-              {productName}
+              {productData?.name}
             </h1>
             <p className="mt-4 text-lg">{productData.description}</p>
             <p>{productData.size}</p>

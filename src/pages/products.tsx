@@ -143,6 +143,7 @@ export default function Products() {
               {products.length > 0 ? (
                 products.map((product, index: number) => (
                   <ProductCard
+                    id={product.id}
                     key={index}
                     imgsrc={product.imgsrc}
                     name={product.name}
