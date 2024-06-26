@@ -27,7 +27,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
           FROM users 
           WHERE id=${userId as string}
       );`;
-      return response.status(200).json(rows);
+      return response.status(200).json({ message: API_MESSAGES.success, cart: rows });
     }
   }
   return response.status(401).json({ message: "not authorized" });
