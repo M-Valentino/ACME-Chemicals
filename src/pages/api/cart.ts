@@ -18,6 +18,17 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
       }) WHERE id=${userId as string};`;
       return response.status(200).json({ message: API_MESSAGES.success });
     }
+  } else if (method === "GET") {
+    if (await jwtIsValid(request, parseInt(userId as string))) {
+      const rows = await sql`SELECT * 
+      FROM products 
+      WHERE id IN (
+          SELECT unnest(cart) 
+          FROM users 
+          WHERE id=${userId as string}
+      );`;
+      return response.status(200).json(rows);
+    }
   }
   return response.status(401).json({ message: "not authorized" });
 };
