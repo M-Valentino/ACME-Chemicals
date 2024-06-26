@@ -43,14 +43,15 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
             .status(400)
             .json({ message: "Missing required fields" });
         }
-
+        const { rows } = await sql`SELECT COUNT(*) FROM products;`;
+        const count = parseInt(rows[0].count);
         await sql`
-        INSERT INTO products (name, imgsrc, description, price, size)
+        INSERT INTO products (name, imgsrc, description, price, size, id)
         VALUES (${nextBase64.decode(name)}, ${nextBase64.decode(
           imgsrc
         )}, ${nextBase64.decode(description)}, ${parseFloat(
           nextBase64.decode(price)
-        )}, ${nextBase64.decode(size)});
+        )}, ${nextBase64.decode(size)}, ${count});
       `;
 
         return response
