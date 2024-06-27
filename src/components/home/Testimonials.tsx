@@ -59,14 +59,14 @@ const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
             alt={`${name}'s portrait`}
             width={56}
             height={56}
-            className="rounded-md"
+            className="rounded-md max-h-[56px]"
           />
           <div className="ml-4">
-            <div className="font-semibold text-lg">{name}</div>
+            <div className="font-semibold">{name}</div>
             <div className="text-sm text-gray-700">{title}</div>
           </div>
         </div>
-        <div className="text-gray-700 text-sm mt-1">{date}</div>
+        <div className="text-gray-700 lg:text-sm xs:text-xs mt-1">{date}</div>
       </div>
       <p className="mt-2 text-gray-700">{description}</p>
     </div>
