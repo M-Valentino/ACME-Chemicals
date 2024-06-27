@@ -49,7 +49,7 @@ const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
   const { key, imgSrc, name, title, date, description } = props;
   return (
     <div
-      className="bg-white p-6 rounded-md border-secondary border-2 xs:mb-2 md:mb-0"
+      className="bg-white md:p-6 xs:p-4 rounded-md border-secondary border-2 xs:mb-2 md:mb-0"
       key={key}
     >
       <div className="flex flex-row justify-between">
